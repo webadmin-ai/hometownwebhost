@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const title = "Contact Our Friendly Hometown Support Team";
+const description = "Contact Home Town Web Host today to ask questions, request site migration, or get started. Email and phone support listed. Send an inquiry now.";
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="section contact-page-section" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="contact-header">
+        <span class="section-tag">Get In Touch</span>
+        <h1 id="contact-heading">How Can We Help You Today?</h1>
+        <p class="contact-intro">
+          Ready to migrate your site, get an AI-enabled setup, or just have questions about our hometown hosting? Send us an inquiry below and we'll reply within 24 business hours.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="form-container">
+          <!-- Interactive Accessible Contact Form -->
+          <ContactForm />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-page-section {
+    background-color: #f9fafb;
+    border-bottom: 1px solid var(--color-border);
+    padding-top: var(--spacing-xxl);
+    padding-bottom: var(--spacing-xxxl);
+  }
+
+  .contact-header {
+    text-align: center;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .section-tag {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .contact-intro {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  .contact-grid {
+    width: 100%;
+    margin-top: var(--spacing-lg);
+  }
+
+  .form-container {
+    max-width: 100%;
+  }
+</style>

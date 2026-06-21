@@ -1,0 +1,391 @@
+---
+interface Props {
+  planName: string;
+  planType: string;
+  monthlyPrice: number;
+  annualPrice: number;
+  features: string[];
+  isPopular?: boolean;
+  promotionalPricing?: {
+    monthly: number;
+    annual: number;
+    expiresAt: string | Date;
+  };
+  additionalCosts?: {
+    description: string;
+    amount: number;
+  }[];
+  contactForPricing?: boolean;
+}
+
+const {
+  planName,
+  planType,
+  monthlyPrice,
+  annualPrice,
+  features,
+  isPopular = false,
+  promotionalPricing,
+  additionalCosts,
+  contactForPricing = false,
+} = Astro.props;
+
+// Formatting helper (USD, 2 decimal places - Req 3.1, 3.5)
+const formatPrice = (amount: number) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amount);
+};
+
+// Calculate monthly billing for the annual subscription
+const annualMonthlyRate = annualPrice / 12;
+
+// Check if promotion is active (Req 3.4)
+const hasPromo = !!promotionalPricing;
+const promoExpires = promotionalPricing?.expiresAt 
+  ? new Date(promotionalPricing.expiresAt).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+  : '';
+
+// Determine pricing class names
+const cardClass = isPopular ? 'pricing-card popular' : 'pricing-card';
+const isAiPlan = planType === 'ai-business';
+---
+
+<article class={`${cardClass} ${isAiPlan ? 'ai-plan' : ''}`}>
+  {isPopular && <div class="popular-tag">Most Popular</div>}
+  {isAiPlan && !isPopular && <div class="ai-tag">AI Powered</div>}
+
+  <div class="card-header">
+    <h3 class="plan-name">{planName}</h3>
+  </div>
+
+  <div class="pricing-display">
+    {contactForPricing ? (
+      <div class="custom-pricing">
+        <span class="price-amount">Custom</span>
+        <p class="pricing-period">Tailored to your business</p>
+      </div>
+    ) : (
+      <div class="pricing-tabs" data-plan-type={planType}>
+        <!-- Monthly Pricing (Default) -->
+        <div class="price-box price-monthly">
+          {hasPromo ? (
+            <div class="promo-price-container">
+              <span class="original-price" aria-label="Original Price">{formatPrice(monthlyPrice)}</span>
+              <span class="price-amount" aria-label="Promotional Price">{formatPrice(promotionalPricing.monthly)}</span>
+            </div>
+          ) : (
+            <span class="price-amount">{formatPrice(monthlyPrice)}</span>
+          )}
+          <span class="pricing-period">/ month</span>
+        </div>
+
+        <!-- Annual Pricing (Displayed with monthly equivalent rate) -->
+        <div class="price-box price-annual">
+          {hasPromo ? (
+            <div class="promo-price-container">
+              <span class="original-price" aria-label="Original Price">{formatPrice(annualMonthlyRate)}</span>
+              <span class="price-amount" aria-label="Promotional Price">{formatPrice(promotionalPricing.annual / 12)}</span>
+            </div>
+          ) : (
+            <span class="price-amount">{formatPrice(annualMonthlyRate)}</span>
+          )}
+          <span class="pricing-period">/ mo billed annually</span>
+          <p class="annual-savings">
+            Save {formatPrice((monthlyPrice * 12) - annualPrice)} / year!
+          </p>
+        </div>
+      </div>
+    )}
+  </div>
+
+  <!-- Promo Expiration Notice - Req 3.4 -->
+  {hasPromo && !contactForPricing && (
+    <div class="promo-expiration">
+      <span class="expiration-label">Special Offer expires on:</span>
+      <strong class="expiration-date">{promoExpires}</strong>
+    </div>
+  )}
+
+  <!-- Additional Costs Disclosures separate from base plan price - Req 3.6 -->
+  {additionalCosts && additionalCosts.length > 0 && (
+    <div class="additional-costs">
+      <h4 class="costs-title">Additional Fees:</h4>
+      <ul role="list" class="costs-list">
+        {additionalCosts.map(cost => (
+          <li>
+            <span class="cost-desc">{cost.description}:</span>
+            <strong class="cost-price">{formatPrice(cost.amount)}</strong>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  <div class="card-features-section">
+    <h4 class="features-title sr-only">Plan Features</h4>
+    <ul class="features-list" role="list">
+      {features.map(feature => (
+        <li class="feature-item">
+          <svg class="feature-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span class="feature-text">{feature}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="card-footer">
+    {contactForPricing ? (
+      <a href="/contact" class="btn btn-primary btn-full" aria-label={`Contact us for custom pricing on ${planName}`}>Contact Us</a>
+    ) : (
+      <a 
+        href={`/contact?plan=${planType}`} 
+        class={`btn ${isPopular ? 'btn-primary' : (isAiPlan ? 'btn-ai' : 'btn-secondary')} btn-full`}
+        aria-label={`Get started with our ${planName} plan`}
+      >
+        Get Started
+      </a>
+    )}
+  </div>
+</article>
+
+<style>
+  .pricing-card {
+    background-color: var(--color-bg-white);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Popular Plan Highlighting */
+  .pricing-card.popular {
+    border-color: var(--color-primary);
+    border-width: 2.5px;
+    box-shadow: 0 4px 20px rgba(2, 82, 165, 0.15);
+  }
+
+  .pricing-card.popular:hover {
+    box-shadow: 0 12px 30px rgba(2, 82, 165, 0.25);
+  }
+
+  /* Specific styling for the AI Enabled business tier */
+  .pricing-card.ai-plan {
+    border-color: var(--color-ai);
+    border-width: 2.5px;
+  }
+
+  .pricing-card.ai-plan:hover {
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.2);
+  }
+
+  /* Tag Styling */
+  .popular-tag {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-primary);
+    color: var(--color-bg-white);
+    padding: 6px var(--spacing-md);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-tag {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-ai);
+    color: var(--color-bg-white);
+    padding: 6px var(--spacing-md);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .card-header {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .plan-name {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--color-text-dark);
+  }
+
+  /* Pricing Display */
+  .pricing-display {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .price-amount {
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 800;
+    color: var(--color-text-dark);
+    line-height: 1.1;
+  }
+
+  .custom-pricing .price-amount {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+  }
+
+  .pricing-period {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+
+  /* Original and Promo Prices (Req 3.4) */
+  .promo-price-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .original-price {
+    font-size: 1.15rem;
+    color: var(--color-text-muted);
+    text-decoration: line-through;
+    opacity: 0.6;
+    font-weight: 600;
+  }
+
+  .annual-savings {
+    font-size: 0.825rem;
+    font-weight: 700;
+    color: var(--color-success);
+    background-color: var(--color-success-light);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: var(--spacing-xs);
+    margin-bottom: 0;
+  }
+
+  /* Promotion Expiration */
+  .promo-expiration {
+    font-size: 0.8rem;
+    text-align: center;
+    background-color: var(--color-danger-light);
+    color: var(--color-danger);
+    padding: var(--spacing-sm);
+    border-radius: 6px;
+    margin-bottom: var(--spacing-lg);
+    border: 1px dashed var(--color-danger);
+  }
+
+  .expiration-label {
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  /* Additional Fees - Req 3.6 */
+  .additional-costs {
+    font-size: 0.8rem;
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 8px;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .costs-title {
+    font-size: 0.8rem;
+    margin-bottom: var(--spacing-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-muted);
+  }
+
+  .costs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .costs-list li {
+    display: flex;
+    justify-content: space-between;
+    color: var(--color-text-muted);
+  }
+
+  /* Features list */
+  .card-features-section {
+    margin-bottom: var(--spacing-xl);
+    flex-grow: 1;
+  }
+
+  .features-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    font-size: 0.925rem;
+    color: var(--color-text-muted);
+  }
+
+  .feature-check {
+    color: var(--color-success);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .pricing-card.ai-plan .feature-check {
+    color: var(--color-ai);
+  }
+
+  .card-footer {
+    margin-top: auto;
+  }
+
+  .btn-full {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Toggle active pricing state */
+  .price-annual {
+    display: none;
+  }
+
+  :global(.pricing-billing-annual) .price-monthly {
+    display: none;
+  }
+
+  :global(.pricing-billing-annual) .price-annual {
+    display: block;
+  }
+</style>

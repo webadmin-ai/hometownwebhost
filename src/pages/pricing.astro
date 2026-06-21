@@ -1,0 +1,250 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import PricingCard from '../components/PricingCard.astro';
+
+// Fetch pricing plans from collections, sorted by order (Req 3.1)
+const pricingPlans = await getCollection('pricing');
+const sortedPlans = pricingPlans.sort((a, b) => a.data.order - b.data.order);
+
+const title = "Affordable Web Hosting Pricing | Home Town Web Host";
+const description = "Explore our transparent hosting pricing. We offer affordable monthly and annual hosting plans with no hidden setup fees. Free domain included on business tiers.";
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- Pricing Hero Section -->
+  <Hero 
+    heading="Simple, Transparent Pricing" 
+    subheading="Choose the perfect hosting package for your website. Switch between monthly and annual billing to lock in additional savings!"
+    ctaText="Get a Free Consultation"
+    ctaLink="/contact"
+  />
+
+  <section class="section pricing-section" aria-labelledby="pricing-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Our Plans</span>
+        <h2 id="pricing-heading">Find the Plan That Fits Your Budget</h2>
+        <p class="section-intro">All our plans feature 99.9% uptime, SSD speed, and local hometown customer service.</p>
+        
+        <!-- Monthly vs Annual Interactive Billing Toggle - Req 3.2 -->
+        <div class="pricing-toggle-wrapper">
+          <span class="toggle-label active" id="billing-monthly-label">Monthly Billing</span>
+          <button 
+            id="billing-toggle-btn" 
+            class="billing-toggle-switch" 
+            role="switch" 
+            aria-checked="false" 
+            aria-label="Toggle between monthly and annual billing"
+          >
+            <span class="toggle-slider"></span>
+          </button>
+          <span class="toggle-label" id="billing-annual-label">
+            Annual Billing 
+            <span class="savings-tag">Save ~16%</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Grid Container holding Pricing Cards -->
+      <div id="pricing-grid-container" class="grid-1-2-4 pricing-grid">
+        {sortedPlans.map(plan => (
+          <PricingCard 
+            planName={plan.data.planName}
+            planType={plan.data.planType}
+            monthlyPrice={plan.data.monthlyPrice}
+            annualPrice={plan.data.annualPrice}
+            features={plan.data.features}
+            isPopular={plan.data.isPopular}
+            promotionalPricing={plan.data.promotionalPricing}
+            additionalCosts={plan.data.additionalCosts}
+            contactForPricing={plan.data.contactForPricing}
+          />
+        ))}
+      </div>
+
+      <!-- Extra Disclosures Info -->
+      <div class="pricing-disclaimer-box">
+        <h3>📋 Plan Information & Standard Fee Disclosures</h3>
+        <p>
+          We believe in 100% transparency. Setup fees and conditional domain registration fees are disclosed separately above (Requirement 3.6). Standard domain registration renewals are billed at a flat rate of <strong>$15.00 / year</strong> if you register your domain through us and do not select a plan with lifetime free domain.
+        </p>
+        <p>
+          All promotional pricing displays both original and promo rates and has a firm expiration date (Requirement 3.4). You can cancel your subscription at any time without penalty.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Simple, accessible and lightning-fast Client-side billing period toggle
+  const toggleBtn = document.getElementById('billing-toggle-btn');
+  const pricingContainer = document.getElementById('pricing-grid-container');
+  const monthlyLabel = document.getElementById('billing-monthly-label');
+  const annualLabel = document.getElementById('billing-annual-label');
+
+  if (toggleBtn && pricingContainer && monthlyLabel && annualLabel) {
+    toggleBtn.addEventListener('click', () => {
+      // Toggle CSS class on the container holding pricing cards
+      const isAnnual = pricingContainer.classList.toggle('pricing-billing-annual');
+      
+      // Update ARIA switch state
+      toggleBtn.setAttribute('aria-checked', isAnnual ? 'true' : 'false');
+      toggleBtn.classList.toggle('active', isAnnual);
+
+      // Highlight active labels
+      if (isAnnual) {
+        monthlyLabel.classList.remove('active');
+        annualLabel.classList.add('active');
+      } else {
+        monthlyLabel.classList.add('active');
+        annualLabel.classList.remove('active');
+      }
+    });
+  }
+</script>
+
+<style>
+  /* Section Header & Intros */
+  .section-header {
+    text-align: center;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--spacing-xxl);
+  }
+
+  .section-tag {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .section-intro {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  /* Interactive Billing Toggle (Req 3.2) */
+  .pricing-toggle-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    background-color: var(--color-bg-light);
+    padding: var(--spacing-sm) var(--spacing-xl);
+    border-radius: 40px;
+    border: 1px solid var(--color-border);
+    margin-top: var(--spacing-sm);
+  }
+
+  .toggle-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    transition: color 0.15s ease-in-out;
+  }
+
+  .toggle-label.active {
+    color: var(--color-text-dark);
+    font-weight: 700;
+  }
+
+  .savings-tag {
+    background-color: var(--color-success);
+    color: var(--color-bg-white);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px var(--spacing-sm);
+    border-radius: 12px;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+
+  /* Toggle Switch */
+  .billing-toggle-switch {
+    background-color: var(--color-primary-light);
+    border: 2px solid var(--color-primary);
+    border-radius: 20px;
+    cursor: pointer;
+    width: 52px;
+    height: 28px;
+    padding: 0;
+    position: relative;
+    transition: background-color 0.2s;
+    min-width: 52px;
+    min-height: 28px;
+  }
+
+  .billing-toggle-switch:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  .billing-toggle-switch.active {
+    background-color: var(--color-primary);
+  }
+
+  .toggle-slider {
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s, background-color 0.2s;
+  }
+
+  .billing-toggle-switch.active .toggle-slider {
+    transform: translateX(24px);
+    background-color: var(--color-bg-white);
+  }
+
+  /* Pricing Grid Layout */
+  .pricing-section {
+    background-color: #f9fafb;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .pricing-grid {
+    margin-bottom: var(--spacing-xxl);
+    align-items: stretch;
+  }
+
+  /* Disclaimer Disclosures - Req 3.6 */
+  .pricing-disclaimer-box {
+    background-color: var(--color-bg-white);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+  }
+
+  .pricing-disclaimer-box h3 {
+    font-size: 1.15rem;
+    margin-top: 0;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-dark);
+  }
+
+  .pricing-disclaimer-box p {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .pricing-disclaimer-box p:last-child {
+    margin-bottom: 0;
+  }
+</style>

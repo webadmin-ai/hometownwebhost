@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "Page Not Available | Home Town Web Host";
+const description = "The page you are looking for is currently unavailable. Return to the Home Town Web Host homepage or explore our hosting services.";
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="section error-page-section" aria-labelledby="error-heading">
+    <div class="container text-center">
+      <span class="error-code">404</span>
+      <h1 id="error-heading">Page Currently Unavailable</h1>
+      <p class="error-message">
+        We apologize for the inconvenience, but the link you followed is either broken or the page is currently undergoing maintenance. 
+      </p>
+      <div class="error-actions">
+        <a href="/" class="btn btn-primary">Return to Homepage</a>
+        <a href="/pricing" class="btn btn-secondary">Explore Pricing Plans</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .error-page-section {
+    padding-top: var(--spacing-xxxl);
+    padding-bottom: var(--spacing-xxxl);
+    background-color: #f9fafb;
+    border-bottom: 1px solid var(--color-border);
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .error-code {
+    font-size: clamp(4rem, 15vw, 7rem);
+    font-weight: 900;
+    color: var(--color-primary-light);
+    line-height: 1;
+    display: block;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .error-message {
+    font-size: 1.15rem;
+    color: var(--color-text-muted);
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--spacing-xl);
+    line-height: 1.6;
+  }
+
+  .error-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    justify-content: center;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .error-actions {
+      flex-direction: row;
+      gap: var(--spacing-lg);
+      max-width: 100%;
+    }
+  }
+</style>

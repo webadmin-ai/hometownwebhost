@@ -1,0 +1,37 @@
+{
+  "planName": "Basic Business",
+  "planType": "basic-business",
+  "monthlyPrice": 19.99,
+  "annualPrice": 199.90,
+  "features": [
+    "Ideal for local service business broshures",
+    "5 GB Super-Fast SSD Storage",
+    "50 GB Monthly Bandwidth",
+    "Free Custom Domain Name (1 year)",
+    "Free SSL Security Certificate",
+    "3 Business Email Addresses",
+    "Standard Support"
+  ],
+  "technicalSpecs": {
+    "storage": "5 GB SSD",
+    "bandwidth": "50 GB",
+    "domains": "1 custom domain",
+    "email": "3 custom addresses",
+    "support": "Email & Phone (business hours)",
+    "aiFeatures": false
+  },
+  "isPopular": false,
+  "promotionalPricing": {
+    "monthly": 14.99,
+    "annual": 149.90,
+    "expiresAt": "2026-12-31"
+  },
+  "additionalCosts": [
+    {
+      "description": "One-time setup and migration fee",
+      "amount": 49.00
+    }
+  ],
+  "order": 2,
+  "contactForPricing": false
+}

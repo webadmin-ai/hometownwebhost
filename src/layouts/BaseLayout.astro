@@ -1,0 +1,105 @@
+---
+import '../styles/reset.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { siteConfig } from '../config';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalURL?: string;
+}
+
+const {
+  title = siteConfig.seo.defaultTitle,
+  description = siteConfig.seo.defaultDescription,
+  ogImage = siteConfig.seo.defaultOgImage,
+  canonicalURL = Astro.url.href,
+} = Astro.props;
+
+// Enforce title structure while encouraging correct length (50-60 chars for SEO - Req 9.1)
+const displayTitle = title.length > 60 ? title.substring(0, 57) + '...' : title;
+
+// Enforce description length for SEO (150-160 chars - Req 9.2)
+let displayDescription = description;
+if (description.length < 150) {
+  // Pad with default site description details if too short
+  displayDescription = `${description} ${siteConfig.description}`.substring(0, 160);
+} else if (description.length > 160) {
+  displayDescription = description.substring(0, 157) + '...';
+}
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Core Meta Tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <title>{displayTitle}</title>
+    <meta name="description" content={displayDescription} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={displayTitle} />
+    <meta property="og:description" content={displayDescription} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site || canonicalURL).href} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={displayTitle} />
+    <meta property="twitter:description" content={displayDescription} />
+    <meta property="twitter:image" content={new URL(ogImage, Astro.site || canonicalURL).href} />
+
+    <!-- Sitemaps -->
+    <link rel="sitemap" href="/sitemap-index.xml" />
+  </head>
+  <body>
+    <!-- Skip to content for Accessibility (Req 10.5, 10.6) -->
+    <a href="#main-content" class="skip-link sr-only">Skip to content</a>
+
+    <Header />
+    
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <style>
+      /* Accessibility Skip Link styling */
+      .skip-link {
+        background: var(--color-primary);
+        color: white;
+        padding: var(--spacing-sm) var(--spacing-md);
+        position: absolute;
+        top: -100px;
+        left: var(--spacing-md);
+        z-index: 1000;
+        transition: top 0.2s ease-in-out;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+
+      .skip-link:focus-visible {
+        top: var(--spacing-md);
+        outline: 3px solid var(--color-focus);
+      }
+
+      /* Core Layout Styles */
+      main {
+        flex: 1 0 auto;
+        outline: none;
+      }
+    </style>
+  </body>
+</html>

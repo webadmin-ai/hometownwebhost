@@ -1,0 +1,156 @@
+---
+interface Props {
+  heading: string;
+  subheading: string;
+  ctaText: string;
+  ctaLink: string;
+  backgroundImage?: string;
+  isAiTheme?: boolean;
+}
+
+const {
+  heading,
+  subheading,
+  ctaText,
+  ctaLink,
+  backgroundImage,
+  isAiTheme = false,
+} = Astro.props;
+
+// Determine background theme styles
+const themeClass = isAiTheme ? 'hero-ai' : 'hero-standard';
+---
+
+<section 
+  class={`hero-section ${themeClass} ${backgroundImage ? 'has-bg' : ''}`}
+  style={backgroundImage ? `background-image: url(${backgroundImage});` : undefined}
+>
+  <!-- Background Contrast Overlay for Readability (WCAG 4.5:1 - Req 10.4) -->
+  <div class="hero-overlay"></div>
+
+  <div class="container hero-container">
+    <div class="hero-content">
+      <h1 class="hero-title">{heading}</h1>
+      <p class="hero-subtitle">{subheading}</p>
+      
+      <div class="hero-actions">
+        <a 
+          href={ctaLink} 
+          class={`btn ${isAiTheme ? 'btn-ai' : 'btn-primary'} btn-hero`}
+          aria-label={`${ctaText} - View our plans and pricing`}
+        >
+          {ctaText}
+          <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    position: relative;
+    padding-top: var(--spacing-xxxl);
+    padding-bottom: var(--spacing-xxxl);
+    color: var(--color-text-light);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    min-height: 420px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Default Standard Blue Gradient Background */
+  .hero-standard {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #033d7a 100%);
+  }
+
+  /* Modern AI Purple Gradient Background */
+  .hero-ai {
+    background: linear-gradient(135deg, var(--color-ai) 0%, #312e81 100%);
+  }
+
+  /* Contrast Overlay - ensures high contrast between text and background */
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Extra layer of dimming to guarantee WCAG AA contrast (Req 10.4) */
+    z-index: 1;
+  }
+
+  /* When actual background image is provided */
+  .hero-section.has-bg .hero-overlay {
+    background: rgba(0, 0, 0, 0.65); /* Darker overlay for images to maintain 4.5:1 ratio */
+  }
+
+  .hero-container {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-content {
+    max-width: 720px;
+  }
+
+  .hero-title {
+    color: var(--color-bg-white);
+    font-size: clamp(2.25rem, 6vw, 3.75rem);
+    line-height: 1.15;
+    margin-bottom: var(--spacing-lg);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .hero-subtitle {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: clamp(1.125rem, 2.5vw, 1.35rem);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-xl);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* CTA Button and touch targets - Req 7.5 */
+  .btn-hero {
+    font-size: 1.125rem;
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    gap: var(--spacing-sm);
+  }
+
+  .btn-hero:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .btn-icon {
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .btn-hero:hover .btn-icon {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 767px) {
+    .hero-section {
+      padding-top: var(--spacing-xxl);
+      padding-bottom: var(--spacing-xxl);
+      text-align: center;
+    }
+    
+    .hero-content {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-hero {
+      width: 100%; /* Easy touch target on mobile */
+    }
+  }
+</style>

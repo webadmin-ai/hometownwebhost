@@ -1,0 +1,539 @@
+---
+import { siteConfig } from '../config';
+---
+
+<div class="contact-form-wrapper">
+  <!-- Success / Confirmation Screen (Req 4.3) -->
+  <div id="form-success-container" class="status-container success-container" aria-live="polite" style="display: none;">
+    <div class="status-icon">✓</div>
+    <h3 class="status-title">Thank You!</h3>
+    <p class="status-message">Your message has been successfully sent. We'll get back to you within 24 business hours.</p>
+    <button id="reset-form-button" class="btn btn-primary">Send Another Message</button>
+  </div>
+
+  <!-- Main Form Container -->
+  <form id="contact-form" class="contact-form" novalidate>
+    <!-- General Form Submission Error Message Container (Req 4.11) -->
+    <div id="form-error-summary" class="status-container error-container" aria-live="assertive" style="display: none;">
+      <div class="status-icon">⚠</div>
+      <h3 class="status-title">Submission Failed</h3>
+      <p id="form-error-message" class="status-message">There was an issue submitting your form. Please check the fields below or try again.</p>
+    </div>
+
+    <!-- Name Field (Req 4.1, 4.4, 4.10) -->
+    <div class="form-group">
+      <label for="form-name">Full Name <span class="required-asterisk">*</span></label>
+      <input 
+        type="text" 
+        id="form-name" 
+        name="name" 
+        required 
+        maxlength="100" 
+        placeholder="e.g. John Doe"
+        aria-describedby="name-error"
+      />
+      <span class="field-error" id="name-error" aria-live="polite"></span>
+    </div>
+
+    <!-- Existing Website Dropdown (Req 4.1, 4.5) -->
+    <div class="form-group">
+      <label for="form-has-website">Do you have an existing website to migrate?</label>
+      <select id="form-has-website" name="hasExistingWebsite">
+        <option value="yes" selected>Yes, I want to migrate my site</option>
+        <option value="no">No, starting a brand new site</option>
+      </select>
+    </div>
+
+    <!-- Website Name Field (Req 4.1, 4.5, 4.10) - Conditional rendering based on dropdown -->
+    <div id="website-name-field-container" class="form-group">
+      <label for="form-website-name">Name of Existing Website <span class="required-asterisk">*</span></label>
+      <input 
+        type="text" 
+        id="form-website-name" 
+        name="websiteName" 
+        maxlength="100" 
+        placeholder="e.g. www.mybusiness.com"
+        aria-describedby="websiteName-error"
+      />
+      <span class="field-error" id="websiteName-error" aria-live="polite"></span>
+    </div>
+
+    <!-- Email Field (Req 4.1, 4.6, 4.7, 4.10) -->
+    <div class="form-group">
+      <label for="form-email">Email Address <span class="required-asterisk">*</span></label>
+      <input 
+        type="email" 
+        id="form-email" 
+        name="email" 
+        required 
+        maxlength="254" 
+        placeholder="e.g. john@example.com"
+        aria-describedby="email-error"
+      />
+      <span class="field-error" id="email-error" aria-live="polite"></span>
+    </div>
+
+    <!-- Phone Number Field (Req 4.1, 4.9, 4.10) -->
+    <div class="form-group">
+      <label for="form-phone">Phone Number <span class="optional-text">(Optional)</span></label>
+      <input 
+        type="tel" 
+        id="form-phone" 
+        name="phone" 
+        maxlength="20" 
+        placeholder="e.g. (555) 555-1234"
+        aria-describedby="phone-error"
+      />
+      <span class="field-error" id="phone-error" aria-live="polite"></span>
+    </div>
+
+    <!-- Message Field (Req 4.1, 4.8, 4.10) -->
+    <div class="form-group">
+      <label for="form-message">Message <span class="required-asterisk">*</span></label>
+      <textarea 
+        id="form-message" 
+        name="message" 
+        required 
+        maxlength="1000" 
+        rows="5" 
+        placeholder="Tell us about your hosting needs or questions..."
+        aria-describedby="message-error"
+      ></textarea>
+      <span class="field-error" id="message-error" aria-live="polite"></span>
+    </div>
+
+    <!-- Hidden Fields for Tracking -->
+    <input type="hidden" name="userAgent" id="form-user-agent" />
+    <input type="hidden" name="timestamp" id="form-timestamp" />
+
+    <!-- Alternative Contact Methods - Req 4.12 -->
+    <div class="alternative-contact">
+      <p>Or contact us directly:</p>
+      <ul>
+        <li>
+          <span>📧 Email:</span>
+          <a href={`mailto:${siteConfig.contactEmail}`} class="direct-contact-link">{siteConfig.contactEmail}</a>
+        </li>
+        <li>
+          <span>📞 Phone:</span>
+          <a href={`tel:${siteConfig.contactPhone.replace(/[^0-9+]/g, '')}`} class="direct-contact-link">{siteConfig.contactPhone}</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Submit Button with Spinner -->
+    <button type="submit" id="submit-form-button" class="btn btn-primary btn-submit">
+      <span class="btn-text">Send Inquiry</span>
+      <span class="btn-spinner" style="display: none;" aria-hidden="true"></span>
+    </button>
+  </form>
+</div>
+
+<script>
+  // Import validation modules from the script
+  import { 
+    validateForm, 
+    validateField, 
+    type ContactFormData,
+    errorMessages 
+  } from '../scripts/form-validation';
+  import { siteConfig } from '../config';
+
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const hasWebsiteDropdown = document.getElementById('form-has-website') as HTMLSelectElement;
+  const websiteNameContainer = document.getElementById('website-name-field-container') as HTMLDivElement;
+  const websiteNameInput = document.getElementById('form-website-name') as HTMLInputElement;
+  const userAgentHidden = document.getElementById('form-user-agent') as HTMLInputElement;
+  const timestampHidden = document.getElementById('form-timestamp') as HTMLInputElement;
+  const submitButton = document.getElementById('submit-form-button') as HTMLButtonElement;
+  const successContainer = document.getElementById('form-success-container') as HTMLDivElement;
+  const errorSummary = document.getElementById('form-error-summary') as HTMLDivElement;
+  const errorMessageText = document.getElementById('form-error-message') as HTMLParagraphElement;
+  const resetButton = document.getElementById('reset-form-button') as HTMLButtonElement;
+
+  // Track initial plan if passed as query parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectedPlan = urlParams.get('plan');
+  if (selectedPlan && form) {
+    const messageField = document.getElementById('form-message') as HTMLTextAreaElement;
+    if (messageField && !messageField.value) {
+      let planDisplayName = 'our hosting plans';
+      if (selectedPlan === 'basic-personal') planDisplayName = 'Basic Personal Plan';
+      if (selectedPlan === 'basic-business') planDisplayName = 'Basic Business Plan';
+      if (selectedPlan === 'ai-business') planDisplayName = 'AI-Enabled Business Plan';
+      if (selectedPlan === 'custom') planDisplayName = 'Custom Enterprise Plan';
+      messageField.value = `Hello! I would like to inquire about the ${planDisplayName} and get started.`;
+    }
+  }
+
+  // Inject user agent & timestamp
+  if (userAgentHidden) userAgentHidden.value = navigator.userAgent;
+  if (timestampHidden) timestampHidden.value = new Date().toISOString();
+
+  // Handle conditional display of website name (Req 4.1, 4.5)
+  const toggleWebsiteNameField = () => {
+    if (hasWebsiteDropdown.value === 'yes') {
+      websiteNameContainer.style.display = 'block';
+      websiteNameInput.disabled = false;
+      websiteNameInput.setAttribute('required', 'required');
+    } else {
+      websiteNameContainer.style.display = 'none';
+      websiteNameInput.disabled = true;
+      websiteNameInput.removeAttribute('required');
+      // Clear value and error if hidden
+      websiteNameInput.value = '';
+      clearFieldError('websiteName');
+    }
+  };
+
+  if (hasWebsiteDropdown && websiteNameContainer && websiteNameInput) {
+    hasWebsiteDropdown.addEventListener('change', toggleWebsiteNameField);
+    toggleWebsiteNameField(); // Run initially
+  }
+
+  // Clear specific field errors
+  const clearFieldError = (fieldName: string) => {
+    const input = form.querySelector(`[name="${fieldName}"]`) as HTMLInputElement | HTMLTextAreaElement;
+    const errorSpan = document.getElementById(`${fieldName}-error`);
+    if (input && errorSpan) {
+      input.removeAttribute('aria-invalid');
+      input.removeAttribute('aria-describedby');
+      errorSpan.textContent = '';
+      input.classList.remove('has-error');
+    }
+  };
+
+  // Render field error messages (Req 10.8)
+  const showFieldError = (fieldName: string, message: string) => {
+    const input = form.querySelector(`[name="${fieldName}"]`) as HTMLInputElement | HTMLTextAreaElement;
+    const errorSpan = document.getElementById(`${fieldName}-error`);
+    if (input && errorSpan) {
+      input.setAttribute('aria-invalid', 'true');
+      input.setAttribute('aria-describedby', `${fieldName}-error`);
+      errorSpan.textContent = message;
+      input.classList.add('has-error');
+    }
+  };
+
+  // Field Blur validation - immediate feedback
+  const fieldsToValidate = ['name', 'websiteName', 'email', 'phone', 'message'] as const;
+  fieldsToValidate.forEach(fieldName => {
+    const input = form.querySelector(`[name="${fieldName}"]`);
+    if (input) {
+      input.addEventListener('blur', () => {
+        const formData = getFormData();
+        const error = validateField(fieldName, formData);
+        if (error) {
+          showFieldError(fieldName, error);
+        } else {
+          clearFieldError(fieldName);
+        }
+      });
+
+      // Clear errors on input
+      input.addEventListener('input', () => {
+        clearFieldError(fieldName);
+      });
+    }
+  });
+
+  // Extract Form Values as object
+  const getFormData = (): ContactFormData => {
+    const data = new FormData(form);
+    return {
+      name: (data.get('name') as string) || '',
+      hasExistingWebsite: (data.get('hasExistingWebsite') as 'yes' | 'no') || 'yes',
+      websiteName: (data.get('websiteName') as string) || '',
+      email: (data.get('email') as string) || '',
+      phone: (data.get('phone') as string) || '',
+      message: (data.get('message') as string) || '',
+    };
+  };
+
+  // Handle Submission - Req 4.2, 4.3, 4.11
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorSummary.style.display = 'none';
+
+      const formData = getFormData();
+      const errors = validateForm(formData);
+
+      // Render all errors if validation fails
+      const errorKeys = Object.keys(errors) as (keyof typeof errors)[];
+      if (errorKeys.length > 0) {
+        errorKeys.forEach(key => {
+          if (errors[key]) {
+            showFieldError(key, errors[key]!);
+          }
+        });
+        
+        // Focus on first erroneous element for accessibility
+        const firstErrorKey = errorKeys[0];
+        const firstInput = form.querySelector(`[name="${firstErrorKey}"]`) as HTMLElement;
+        firstInput?.focus();
+        return;
+      }
+
+      // Start submission process
+      setLoadingState(true);
+
+      // Set up AbortController for 30-second timeout (Req 4.11)
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
+
+      try {
+        const response = await fetch(siteConfig.contactEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+          signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (response.ok) {
+          // Success (Req 4.3)
+          form.reset();
+          toggleWebsiteNameField(); // Reset field visibility
+          form.style.display = 'none';
+          successContainer.style.display = 'block';
+          successContainer.focus();
+        } else {
+          // Server error (Req 4.11)
+          throw new Error('Server returned submission failure status.');
+        }
+      } catch (err: any) {
+        // Handle Abort / Timeout or general Network Error
+        let message = 'There was a network error sending your message. Please check your internet connection or contact us directly.';
+        if (err.name === 'AbortError') {
+          message = 'The server took too long to respond. The request has timed out. Please check your connection and try again.';
+        }
+        
+        errorMessageText.textContent = message;
+        errorSummary.style.display = 'flex';
+        errorSummary.focus();
+        
+        // Form data is retained in fields automatically
+      } finally {
+        setLoadingState(false);
+      }
+    });
+  }
+
+  // Toggle Loading State
+  const setLoadingState = (loading: boolean) => {
+    if (submitButton) {
+      const btnText = submitButton.querySelector('.btn-text');
+      const btnSpinner = submitButton.querySelector('.btn-spinner') as HTMLElement;
+      
+      if (loading) {
+        submitButton.disabled = true;
+        if (btnText) btnText.textContent = 'Sending...';
+        if (btnSpinner) btnSpinner.style.display = 'inline-block';
+      } else {
+        submitButton.disabled = false;
+        if (btnText) btnText.textContent = 'Send Inquiry';
+        if (btnSpinner) btnSpinner.style.display = 'none';
+      }
+    }
+  };
+
+  // Reset form screen (send another message)
+  if (resetButton && form && successContainer) {
+    resetButton.addEventListener('click', () => {
+      successContainer.style.display = 'none';
+      form.style.display = 'block';
+      setTimeout(() => {
+        const firstInput = form.querySelector('[name="name"]') as HTMLElement;
+        firstInput?.focus();
+      }, 50);
+    });
+  }
+</script>
+
+<style>
+  .contact-form-wrapper {
+    background-color: var(--color-bg-white);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-text-dark);
+  }
+
+  .required-asterisk {
+    color: var(--color-danger);
+  }
+
+  .optional-text {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-weight: normal;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1.5px solid var(--color-border);
+    border-radius: 6px;
+    background-color: var(--color-bg-white);
+    color: var(--color-text-dark);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(2, 82, 165, 0.15);
+    outline: none;
+  }
+
+  input.has-error, select.has-error, textarea.has-error {
+    border-color: var(--color-danger);
+    background-color: var(--color-danger-light);
+  }
+
+  input.has-error:focus, select.has-error:focus, textarea.has-error:focus {
+    box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.15);
+  }
+
+  /* Inline Field Errors (Req 10.8) */
+  .field-error {
+    color: var(--color-danger);
+    font-size: 0.825rem;
+    font-weight: 500;
+    min-height: 18px;
+    margin-top: 2px;
+  }
+
+  /* Status containers (Success and general failures) - Req 4.3, 4.11 */
+  .status-container {
+    padding: var(--spacing-xl);
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    outline: none;
+  }
+
+  .success-container {
+    background-color: var(--color-success-light);
+    border: 1.5px solid var(--color-success);
+    color: var(--color-success);
+  }
+
+  .error-container {
+    background-color: var(--color-danger-light);
+    border: 1.5px solid var(--color-danger);
+    color: var(--color-danger);
+    text-align: left;
+    align-items: flex-start;
+    padding: var(--spacing-lg);
+  }
+
+  .status-icon {
+    font-size: 2rem;
+    line-height: 1;
+    font-weight: bold;
+  }
+
+  .status-title {
+    font-size: 1.25rem;
+    margin-bottom: 0;
+  }
+
+  .error-container .status-title {
+    color: var(--color-danger);
+  }
+
+  .status-message {
+    font-size: 0.95rem;
+    color: var(--color-text-dark);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  /* Submit button spinner styling */
+  .btn-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    font-size: 1.05rem;
+    padding: var(--spacing-md);
+  }
+
+  .btn-spinner {
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+  }
+
+  /* Direct Contacts list */
+  .alternative-contact {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--spacing-lg);
+    margin-top: var(--spacing-sm);
+    font-size: 0.875rem;
+  }
+
+  .alternative-contact p {
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .alternative-contact ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .alternative-contact li {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+  }
+
+  .direct-contact-link {
+    color: var(--color-primary);
+    font-weight: 600;
+    min-height: 30px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .direct-contact-link:hover {
+    text-decoration: underline;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+</style>

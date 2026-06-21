@@ -1,0 +1,264 @@
+/* Global Styles and CSS Custom Properties */
+
+:root {
+  /* Colors */
+  --color-primary: #0252a5;       /* Reliable Hometown Blue */
+  --color-primary-hover: #013e80;
+  --color-primary-light: #e6f0fa;
+  
+  --color-ai: #6366f1;            /* Modern AI Purple/Indigo */
+  --color-ai-hover: #4f46e5;
+  --color-ai-light: #eef2ff;
+
+  --color-accent: #0f766e;         /* Teal Accent */
+  
+  --color-success: #15803d;       /* Green for positive actions */
+  --color-success-light: #f0fdf4;
+  
+  --color-danger: #b91c1c;        /* Red for error states */
+  --color-danger-light: #fef2f2;
+  
+  --color-text-dark: #111827;     /* High contrast body text */
+  --color-text-muted: #4b5563;    /* Secondary text */
+  --color-text-light: #f9fafb;    /* Light text for dark backgrounds */
+  
+  --color-bg-white: #ffffff;
+  --color-bg-light: #f3f4f6;
+  --color-bg-dark: #1f2937;
+  
+  --color-border: #e5e7eb;
+  --color-focus: #2563eb;
+
+  /* Typography */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  
+  --font-size-base: 16px;
+  --font-size-mobile-min: 16px; /* Req 7.8 */
+  
+  /* Layout and Spacing */
+  --spacing-unit: 8px;            /* Req 7.6 */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+  --spacing-xxxl: 64px;
+
+  /* Touch Targets & Breakpoints */
+  --touch-target-min: 44px;       /* Req 7.5 */
+  --breakpoint-mobile: 768px;     /* Req 7.1 */
+  --breakpoint-tablet: 1024px;    /* Req 7.3 */
+}
+
+/* Base resets and defaults */
+html {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  color: var(--color-text-dark);
+  background-color: var(--color-bg-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden; /* Req 7.7 */
+}
+
+/* Ensure font size on mobile is at least 16px */
+@media (max-width: 767px) {
+  html {
+    font-size: var(--font-size-mobile-min);
+  }
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text-dark);
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: var(--spacing-md);
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  margin-top: var(--spacing-xl);
+}
+
+h3 {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  margin-top: var(--spacing-lg);
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.15s ease-in-out;
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  display: inline-flex;
+  align-items: center;
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+/* Keyboard focus states - Req 10.5 */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-weight: 600;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  text-decoration: none;
+  min-width: var(--touch-target-min); /* Req 7.5 */
+  min-height: var(--touch-target-min); /* Req 7.5 */
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-bg-white);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  color: var(--color-bg-white);
+  text-decoration: none;
+}
+
+.btn-ai {
+  background-color: var(--color-ai);
+  color: var(--color-bg-white);
+}
+
+.btn-ai:hover {
+  background-color: var(--color-ai-hover);
+  color: var(--color-bg-white);
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-primary-light);
+  text-decoration: none;
+}
+
+/* Utilities */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-lg);
+  padding-right: var(--spacing-lg);
+}
+
+.section {
+  padding-top: var(--spacing-xxl);
+  padding-bottom: var(--spacing-xxl);
+}
+
+/* Grid layouts based on viewports - Req 7.1, 7.3, 7.4 */
+.grid-1-2-4 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .grid-1-2-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1025px) {
+  .grid-1-2-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.grid-1-2-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .grid-1-2-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1025px) {
+  .grid-1-2-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.grid-1-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+}
+
+@media (min-width: 768px) {
+  .grid-1-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Prevent horizontal scroll layout utility - Req 7.7 */
+.row {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Screen reader only utility - Req 10.2 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

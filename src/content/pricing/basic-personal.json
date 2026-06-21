@@ -1,0 +1,31 @@
+{
+  "planName": "Basic Personal",
+  "planType": "basic-personal",
+  "monthlyPrice": 9.99,
+  "annualPrice": 99.90,
+  "features": [
+    "Perfect for blogs, portfolios & resumes",
+    "1 GB Super-Fast SSD Storage",
+    "10 GB Monthly Bandwidth",
+    "Free SSL Security Certificate",
+    "Manual updates via Git or FTP",
+    "Standard Email Support"
+  ],
+  "technicalSpecs": {
+    "storage": "1 GB SSD",
+    "bandwidth": "10 GB",
+    "domains": "1 personal domain",
+    "email": "None",
+    "support": "Email (24-hour response)",
+    "aiFeatures": false
+  },
+  "isPopular": false,
+  "additionalCosts": [
+    {
+      "description": "Optional custom domain registration",
+      "amount": 15.00
+    }
+  ],
+  "order": 1,
+  "contactForPricing": false
+}

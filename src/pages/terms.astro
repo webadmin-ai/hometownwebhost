@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "Terms of Service | Home Town Web Host";
+const description = "Review the Terms of Service for Home Town Web Host. Learn about our service agreements, hosting guarantees, and usage policies for local websites.";
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="section legal-page" aria-labelledby="legal-heading">
+    <div class="container legal-container">
+      <h1 id="legal-heading">Terms of Service</h1>
+      <p class="last-updated">Last Updated: June 21, 2026</p>
+      
+      <p class="lead">
+        Welcome to Home Town Web Host. By subscribing to our web hosting plans or using our website, you agree to comply with the following Terms of Service. Please read them carefully.
+      </p>
+
+      <h2>1. Service Description & SLA</h2>
+      <p>
+        Home Town Web Host provides high-speed, static web hosting and AI-enabled website management services. We guarantee a <strong>99.9% uptime SLA</strong> for all hosting tiers. If we fall below this threshold in any billing cycle, you are eligible to request service credits.
+      </p>
+
+      <h2>2. Subscription Billing & Cancellations</h2>
+      <p>
+        All hosting subscriptions are available on either monthly or annual payment terms (Requirement 3.2). 
+      </p>
+      <ul>
+        <li>Monthly billing is processed on your subscription anniversary date.</li>
+        <li>Annual billing is processed once a year, giving you a discount of approximately 16% off the monthly rate.</li>
+        <li>You may cancel your hosting plan at any time. Cancellations will take effect at the end of your current active billing period, and no further renewals will be processed.</li>
+      </ul>
+
+      <h2>3. Conversational AI Management Policy</h2>
+      <p>
+        For customers on our <strong>AI-Enabled Plan</strong>:
+      </p>
+      <p>
+        The AI website editor is a fixed-cost monthly service that allows you to request changes in plain English. We reserve the right to monitor AI-applied changes to ensure they do not violate local advertising regulations or intellectual property laws. Customers remain fully responsible for any content published on their website.
+      </p>
+
+      <h2>4. Acceptable Use Policy</h2>
+      <p>
+        We pride ourselves on hosting safe, community-first local websites. You may not use our hosting services to store, transmit, or promote:
+      </p>
+      <ul>
+        <li>Unlawful, harassing, hateful, or highly deceptive materials</li>
+        <li>Malware, viruses, or spam scripts</li>
+        <li>Content that infringes upon copyright, trademarks, or trade secrets of other businesses</li>
+      </ul>
+      <p>
+        We reserve the right to remove listings or terminate accounts that violate our acceptable use guidelines.
+      </p>
+
+      <h2>5. Limitation of Liability</h2>
+      <p>
+        To the maximum extent permitted by local laws, Home Town Web Host shall not be held liable for any indirect, incidental, or consequential damages (including loss of business profits or data) resulting from server downtime, hardware failures, or network interruptions.
+      </p>
+
+      <h2>6. Governing Law</h2>
+      <p>
+        These Terms of Service are governed by and construed in accordance with local regulations, without giving effect to any principles of conflicts of law.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    background-color: var(--color-bg-white);
+    padding-top: var(--spacing-xxl);
+    padding-bottom: var(--spacing-xxxl);
+  }
+
+  .legal-container {
+    max-width: 800px;
+  }
+
+  .last-updated {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .lead {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--color-text-dark);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  h2 {
+    font-size: 1.35rem;
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-dark);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-xs);
+  }
+
+  p, li {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+  }
+
+  ul {
+    margin-bottom: var(--spacing-lg);
+    padding-left: var(--spacing-xl);
+  }
+
+  li {
+    margin-bottom: var(--spacing-xs);
+  }
+</style>

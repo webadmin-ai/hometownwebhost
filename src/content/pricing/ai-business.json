@@ -1,0 +1,26 @@
+{
+  "planName": "AI-Enabled Business",
+  "planType": "ai-business",
+  "monthlyPrice": 49.99,
+  "annualPrice": 499.90,
+  "features": [
+    "Speak plain English to update your site",
+    "Unlimited text & image edits via AI",
+    "10 GB Super-Fast SSD Storage",
+    "Unlimited Monthly Bandwidth",
+    "Free Custom Domain (lifetime)",
+    "5 Professional Email Addresses",
+    "Priority 24/7 Support"
+  ],
+  "technicalSpecs": {
+    "storage": "10 GB SSD",
+    "bandwidth": "Unlimited",
+    "domains": "1 free custom domain",
+    "email": "5 custom addresses",
+    "support": "Priority 24/7 (Email & Phone)",
+    "aiFeatures": true
+  },
+  "isPopular": true,
+  "order": 3,
+  "contactForPricing": false
+}
