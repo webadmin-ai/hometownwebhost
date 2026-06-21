@@ -1,174 +1,95 @@
-/**
- * Form Validation Logic for Home Town Web Host
- * Enforces rigorous constraints specified in Requirement 4.
- */
-
-export interface ContactFormData {
-  name: string;
-  hasExistingWebsite: 'yes' | 'no';
-  websiteName?: string;
-  email: string;
-  phone?: string;
-  message: string;
-}
-
-export interface ValidationErrors {
-  name?: string;
-  websiteName?: string;
-  email?: string;
-  phone?: string;
-  message?: string;
-}
-
-// Error message constants matching Acceptance Criteria - Req 4.4 to 4.10
 export const errorMessages = {
   name: {
-    required: 'Name is required.',
-    maxLength: 'Name must be 100 characters or less.',
-  },
-  websiteName: {
-    required: 'Website name is required when you have an existing site.',
-    maxLength: 'Website name must be 100 characters or less.',
+    required: 'Name is required',
+    maxLength: 'Name must be 100 characters or less',
   },
   email: {
-    required: 'Email is required.',
-    invalidFormat: 'Please enter a valid email address with a domain (e.g., name@example.com).',
-    maxLength: 'Email must be 254 characters or less.',
+    required: 'Email is required',
+    invalid: 'Please enter a valid email address (e.g., name@example.com)',
+    maxLength: 'Email must be 254 characters or less',
   },
   phone: {
-    invalidFormat: 'Phone number format is invalid. Use digits, spaces, hyphens, parentheses, or plus sign only.',
-    maxLength: 'Phone number must be 20 characters or less.',
+    invalid: 'Please enter a valid phone number (digits, spaces, hyphens, parentheses, or + only)',
+    maxLength: 'Phone number must be 20 characters or less',
   },
   message: {
-    required: 'Message is required.',
-    maxLength: 'Message must be 1000 characters or less.',
-  }
-};
+    required: 'Message is required',
+    maxLength: 'Message must be 1000 characters or less',
+  },
+  websiteName: {
+    maxLength: 'Website name must be 100 characters or less',
+  },
+} as const;
 
-/**
- * Validates the 'name' field
- */
-export function validateName(name: string): string | undefined {
-  const trimmed = name.trim();
-  if (!trimmed) {
-    return errorMessages.name.required;
-  }
-  if (trimmed.length > 100) {
-    return errorMessages.name.maxLength;
-  }
-  return undefined;
+export function validateName(value: string): string | null {
+  const trimmed = value.trim();
+  if (!trimmed) return errorMessages.name.required;
+  if (trimmed.length > 100) return errorMessages.name.maxLength;
+  return null;
 }
 
-/**
- * Validates the 'websiteName' field (conditional on hasExistingWebsite === 'yes')
- */
-export function validateWebsiteName(websiteName: string | undefined, hasExistingWebsite: 'yes' | 'no'): string | undefined {
-  if (hasExistingWebsite === 'no') {
-    return undefined;
-  }
-  
-  const trimmed = (websiteName || '').trim();
-  if (!trimmed) {
-    return errorMessages.websiteName.required;
-  }
-  if (trimmed.length > 100) {
-    return errorMessages.websiteName.maxLength;
-  }
-  return undefined;
+export function validateEmail(value: string): string | null {
+  const trimmed = value.trim();
+  if (!trimmed) return errorMessages.email.required;
+  if (trimmed.length > 254) return errorMessages.email.maxLength;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) return errorMessages.email.invalid;
+  return null;
 }
 
-/**
- * Validates the 'email' field
- */
-export function validateEmail(email: string): string | undefined {
-  const trimmed = email.trim();
-  if (!trimmed) {
-    return errorMessages.email.required;
-  }
-  if (trimmed.length > 254) {
-    return errorMessages.email.maxLength;
-  }
-  // Standard email validation (must contain @ followed by a domain - Req 4.7)
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(trimmed)) {
-    return errorMessages.email.invalidFormat;
-  }
-  return undefined;
+export function validatePhone(value: string): string | null {
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  if (trimmed.length > 20) return errorMessages.phone.maxLength;
+  if (!/^[0-9\s\-()+ ]+$/.test(trimmed)) return errorMessages.phone.invalid;
+  return null;
 }
 
-/**
- * Validates the 'phone' field
- */
-export function validatePhone(phone: string | undefined): string | undefined {
-  const trimmed = (phone || '').trim();
-  if (!trimmed) {
-    return undefined; // Optional field
-  }
-  if (trimmed.length > 20) {
-    return errorMessages.phone.maxLength;
-  }
-  // Allowed chars: digits, spaces, hyphens, parentheses, plus sign (Req 4.9)
-  const phoneRegex = /^[0-9\s\-()+]*$/;
-  if (!phoneRegex.test(trimmed)) {
-    return errorMessages.phone.invalidFormat;
-  }
-  return undefined;
+export function validateMessage(value: string): string | null {
+  const trimmed = value.trim();
+  if (!trimmed) return errorMessages.message.required;
+  if (trimmed.length > 1000) return errorMessages.message.maxLength;
+  return null;
 }
 
-/**
- * Validates the 'message' field
- */
-export function validateMessage(message: string): string | undefined {
-  const trimmed = message.trim();
-  if (!trimmed) {
-    return errorMessages.message.required;
-  }
-  if (trimmed.length > 1000) {
-    return errorMessages.message.maxLength;
-  }
-  return undefined;
+export function validateWebsiteName(value: string): string | null {
+  if (value.length > 100) return errorMessages.websiteName.maxLength;
+  return null;
 }
 
-/**
- * Validates an individual field by key and value
- */
-export function validateField(key: keyof ContactFormData, data: ContactFormData): string | undefined {
-  switch (key) {
-    case 'name':
-      return validateName(data.name);
-    case 'websiteName':
-      return validateWebsiteName(data.websiteName, data.hasExistingWebsite);
-    case 'email':
-      return validateEmail(data.email);
-    case 'phone':
-      return validatePhone(data.phone);
-    case 'message':
-      return validateMessage(data.message);
-    default:
-      return undefined;
-  }
+export interface ValidationResult {
+  valid: boolean;
+  errors: Record<string, string>;
 }
 
-/**
- * Performs full validation on a set of Contact Form Data
- */
-export function validateForm(data: ContactFormData): ValidationErrors {
-  const errors: ValidationErrors = {};
-  
-  const nameErr = validateName(data.name);
-  if (nameErr) errors.name = nameErr;
+export function validateForm(data: {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  hasExistingWebsite: boolean;
+  websiteName: string;
+}): ValidationResult {
+  const errors: Record<string, string> = {};
 
-  const websiteErr = validateWebsiteName(data.websiteName, data.hasExistingWebsite);
-  if (websiteErr) errors.websiteName = websiteErr;
+  const nameError = validateName(data.name);
+  if (nameError) errors.name = nameError;
 
-  const emailErr = validateEmail(data.email);
-  if (emailErr) errors.email = emailErr;
+  const emailError = validateEmail(data.email);
+  if (emailError) errors.email = emailError;
 
-  const phoneErr = validatePhone(data.phone);
-  if (phoneErr) errors.phone = phoneErr;
+  const phoneError = validatePhone(data.phone);
+  if (phoneError) errors.phone = phoneError;
 
-  const messageErr = validateMessage(data.message);
-  if (messageErr) errors.message = messageErr;
+  const messageError = validateMessage(data.message);
+  if (messageError) errors.message = messageError;
 
-  return errors;
+  if (data.hasExistingWebsite) {
+    const websiteError = validateWebsiteName(data.websiteName);
+    if (websiteError) errors.websiteName = websiteError;
+  }
+
+  return {
+    valid: Object.keys(errors).length === 0,
+    errors,
+  };
 }

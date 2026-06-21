@@ -1,0 +1,22 @@
+{
+  "title": "Basic Web Hosting",
+  "description": "Reliable, affordable web hosting for small businesses and individuals who want a professional online presence without the complexity. Perfect for getting your business or personal site online quickly.",
+  "icon": "globe",
+  "features": [
+    "Custom domain name support",
+    "SSL certificate included",
+    "99.9% uptime guarantee",
+    "5 GB storage",
+    "Email hosting included",
+    "Mobile-responsive templates",
+    "Basic analytics dashboard"
+  ],
+  "targetAudience": [
+    "Small local businesses",
+    "Individuals wanting personal websites",
+    "Restaurants and cafes",
+    "Landscapers and contractors"
+  ],
+  "order": 1,
+  "body": "Our Basic Web Hosting plan gives you everything you need to establish your online presence. Whether you run a local restaurant, landscaping business, or just want a personal website, we make it simple and affordable to get online."
+}

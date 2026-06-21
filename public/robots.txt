@@ -1,7 +1,4 @@
-# Robots.txt for Home Town Web Host
-# Allows all search engine crawlers to crawl all pages of our website
-
 User-agent: *
 Allow: /
 
-Sitemap: https://hometownwebhost.com/sitemap.xml
+Sitemap: https://hometownwebhost.com/sitemap-index.xml

@@ -1,15 +1,18 @@
 {
-  "planName": "Custom Enterprise",
+  "planName": "Custom Plan",
   "planType": "custom",
-  "monthlyPrice": 0.00,
-  "annualPrice": 0.00,
+  "monthlyPrice": 0,
+  "annualPrice": 0,
   "features": [
-    "For complex databases or booking applications",
-    "Bespoke, custom-coded architecture",
-    "Flexible, dedicated storage & bandwidth",
-    "Advanced database & API integrations",
-    "Specialized SEO & speed optimization",
-    "Dedicated Account Manager support"
+    "Fully customizable package",
+    "Dedicated account manager",
+    "Custom storage & bandwidth",
+    "Advanced security features",
+    "Website migration assistance",
+    "Custom integrations",
+    "Priority phone support",
+    "Service level agreement (SLA)",
+    "Optional AI features add-on"
   ],
   "isPopular": false,
   "order": 4,

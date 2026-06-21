@@ -1,0 +1,22 @@
+{
+  "title": "Custom Web Hosting",
+  "description": "Tailored hosting solutions for businesses with unique needs. If our standard plans don't fit, we'll work with you to create a custom package that matches your exact requirements and budget.",
+  "icon": "wrench",
+  "features": [
+    "Fully customizable hosting package",
+    "Dedicated account manager",
+    "Custom storage and bandwidth",
+    "Advanced security features",
+    "Website migration assistance",
+    "Custom integrations",
+    "Priority phone support",
+    "Service level agreement (SLA)"
+  ],
+  "targetAudience": [
+    "Businesses with specialized requirements",
+    "Companies migrating from other hosts",
+    "Organizations needing custom integrations"
+  ],
+  "order": 3,
+  "body": "Every business is unique, and sometimes a one-size-fits-all plan doesn't cut it. Our Custom Web Hosting is designed for businesses that need something special. Contact us and we'll build a hosting package that fits your exact needs."
+}

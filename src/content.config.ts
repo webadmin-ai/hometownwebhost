@@ -1,8 +1,8 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const testimonialsCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.json', base: './src/content/testimonials' }),
+const testimonials = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/testimonials' }),
   schema: z.object({
     quote: z.string().min(20).max(500),
     author: z.string().min(2).max(100),
@@ -12,8 +12,8 @@ const testimonialsCollection = defineCollection({
   }),
 });
 
-const servicesCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.md', base: './src/content/services' }),
+const services = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/services' }),
   schema: z.object({
     title: z.string().min(5).max(100),
     description: z.string().min(20).max(500),
@@ -21,20 +21,15 @@ const servicesCollection = defineCollection({
     features: z.array(z.string()),
     targetAudience: z.array(z.string()),
     order: z.number().int().positive(),
+    body: z.string().optional(),
   }),
 });
 
-const pricingCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.json', base: './src/content/pricing' }),
+const pricing = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/pricing' }),
   schema: z.object({
     planName: z.string().min(3).max(50),
-    planType: z.enum([
-      'basic-business',
-      'basic-personal',
-      'ai-business',
-      'ai-personal',
-      'custom',
-    ]),
+    planType: z.enum(['basic-business', 'basic-personal', 'ai-business', 'ai-personal', 'custom']),
     monthlyPrice: z.number().nonnegative(),
     annualPrice: z.number().nonnegative(),
     features: z.array(z.string()),
@@ -50,21 +45,15 @@ const pricingCollection = defineCollection({
     promotionalPricing: z.object({
       monthly: z.number().positive(),
       annual: z.number().positive(),
-      expiresAt: z.string().or(z.date()), // allow string or Date
+      expiresAt: z.string(),
     }).optional(),
-    additionalCosts: z.array(
-      z.object({
-        description: z.string(),
-        amount: z.number().nonnegative(),
-      })
-    ).optional(),
+    additionalCosts: z.array(z.object({
+      description: z.string(),
+      amount: z.number().nonnegative(),
+    })).optional(),
     order: z.number().int().positive(),
     contactForPricing: z.boolean().default(false),
   }),
 });
 
-export const collections = {
-  testimonials: testimonialsCollection,
-  services: servicesCollection,
-  pricing: pricingCollection,
-};
+export const collections = { testimonials, services, pricing };

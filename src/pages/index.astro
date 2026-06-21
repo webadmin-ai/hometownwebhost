@@ -1,99 +1,51 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import Testimonial from '../components/Testimonial.astro';
+import { getCollection } from 'astro:content';
 
-// Fetch content from collections - sorted by order (Req 1.2, 1.3)
-const testimonials = await getCollection('testimonials');
-const sortedTestimonials = testimonials.sort((a, b) => a.data.order - b.data.order);
-
-const services = await getCollection('services');
-const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
-
-// Page Details (Ensures 50-60 chars title, 150-160 chars description - Req 9.1, 9.2)
-const title = "Home Town Web Host | Local Web Hosting with AI Power";
-const description = "Affordable, ultra-fast web hosting for local businesses and individuals. Talk to your website in plain English to make updates instantly with our AI features.";
+const testimonials = (await getCollection('testimonials')).sort((a, b) => a.data.order - b.data.order);
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<BaseLayout title={title} description={description}>
-  <!-- Hero Section - Req 1.1, 1.4, 7.5 -->
-  <Hero 
-    heading="Home Town Web Host" 
-    subheading="Reliable web hosting with revolutionary AI tools that let you update your website by simply speaking plain English."
-    ctaText="View Hosting Plans"
-    ctaLink="/pricing"
+<BaseLayout
+  title="Affordable Web Hosting for Small Businesses"
+  description="Home Town Web Host provides affordable, AI-enabled web hosting for small local businesses and individuals. Get your business online today."
+>
+  <Hero
+    heading="Home Town Web Host"
+    subheading="Affordable, AI-powered web hosting built for small local businesses and individuals. Get your restaurant, landscaping business, or personal site online — no tech skills required."
+    ctaText="View Our Plans"
+    ctaLink="/pricing/"
   />
 
-  <!-- Services Overview - Req 1.2, 7.1, 7.3, 7.4 -->
   <section class="section services-overview" aria-labelledby="services-heading">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">What We Offer</span>
-        <h2 id="services-heading">Hosting Built for Our Community</h2>
-        <p class="section-intro">
-          We provide lightning-fast, secure web hosting specifically tailored for small local businesses (like restaurants, landscapers, plumbers, and contractors) and individuals who want a personal website.
-        </p>
-      </div>
-
-      <div class="grid-1-2-3">
-        {sortedServices.map(service => (
-          <ServiceCard 
+      <h2 id="services-heading">Our Hosting Services</h2>
+      <p class="section-subtitle">
+        Web hosting designed for small local businesses — restaurants, landscapers, contractors, and individuals who want their own personal website.
+      </p>
+      <div class="services-grid">
+        {services.map(service => (
+          <ServiceCard
             title={service.data.title}
             description={service.data.description}
             icon={service.data.icon}
-            features={service.data.features}
-            link={`/services#${service.id}`}
-            linkLabel="View Service Details"
+            features={service.data.features.slice(0, 4)}
+            link="/services/"
           />
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Value Proposition Highlight - Req 2.2 -->
-  <section class="section value-callout-section" aria-labelledby="value-heading">
-    <div class="container grid-1-2">
-      <div class="value-image-placeholder" aria-hidden="true">
-        <div class="mock-browser">
-          <div class="browser-bar">
-            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-          </div>
-          <div class="browser-content">
-            <p class="chat-bubble user">Hey AI, change our winter operating hours to 8 AM to 5 PM.</p>
-            <p class="chat-bubble assistant">✓ Instant update applied! Your website now displays: "Winter Hours: 8 AM - 5 PM"</p>
-          </div>
-        </div>
-      </div>
-      <div class="value-content">
-        <span class="section-tag ai-tag-label">Innovative AI Add-on</span>
-        <h2 id="value-heading">No Code. No Editors. Just Talk to Your Website.</h2>
-        <p>
-          Busy running a contracting business or managing a restaurant? You don't have time to learn complicated web page editors.
-        </p>
-        <p>
-          With our premier <strong>AI-Enabled Hosting Plan</strong>, you can adjust your text, change menu items, or announce seasonal services by simply chatting in plain English. It's like having a full-time web developer on staff for a low, fixed monthly cost.
-        </p>
-        <div class="value-actions">
-          <a href="/services" class="btn btn-ai">Explore AI Features</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Customer Testimonials - Req 1.3 -->
   <section class="section testimonials-section" aria-labelledby="testimonials-heading">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Testimonials</span>
-        <h2 id="testimonials-heading">Loved by Local Businesses</h2>
-        <p class="section-intro">See how hometown business owners are saving time and reaching more customers.</p>
-      </div>
-
-      <div class="grid-1-2">
-        {sortedTestimonials.map(testimonial => (
-          <Testimonial 
+      <h2 id="testimonials-heading">What Our Customers Say</h2>
+      <div class="testimonials-grid">
+        {testimonials.map(testimonial => (
+          <Testimonial
             quote={testimonial.data.quote}
             author={testimonial.data.author}
             businessName={testimonial.data.businessName}
@@ -104,191 +56,100 @@ const description = "Affordable, ultra-fast web hosting for local businesses and
     </div>
   </section>
 
-  <!-- Bottom CTA Banner - Req 1.4 -->
-  <section class="section cta-banner-section" aria-labelledby="cta-heading">
-    <div class="container text-center">
-      <h2 id="cta-heading">Ready to Establish Your Hometown Presence?</h2>
-      <p class="cta-banner-text">Whether you need standard reliable hosting or our smart AI-assisted management, we have the perfect plan for you.</p>
-      <div class="cta-banner-actions">
-        <a href="/pricing" class="btn btn-primary btn-cta">See Pricing Plans</a>
-        <a href="/contact" class="btn btn-secondary btn-cta-secondary">Get a Free Consultation</a>
+  <section class="section cta-section" aria-labelledby="cta-heading">
+    <div class="container cta-inner">
+      <h2 id="cta-heading">Ready to Get Your Business Online?</h2>
+      <p>Join hundreds of local businesses who trust Home Town Web Host for their online presence.</p>
+      <div class="cta-buttons">
+        <a href="/pricing/" class="btn btn-primary">See Pricing</a>
+        <a href="/contact/" class="btn btn-secondary">Contact Us</a>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  /* Section Headers styling */
-  .section-header {
-    text-align: center;
-    max-width: 680px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: var(--spacing-xxl);
-  }
-
-  .section-tag {
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--color-primary);
-    letter-spacing: 1px;
-    display: inline-block;
-    margin-bottom: var(--spacing-sm);
-  }
-
-  .ai-tag-label {
-    color: var(--color-ai);
-  }
-
-  .section-intro {
-    font-size: 1.1rem;
-    color: var(--color-text-muted);
-  }
-
-  .text-center {
-    text-align: center;
-  }
-
-  /* Value Proposition Showcase with custom CSS illustration */
-  .value-callout-section {
-    background-color: var(--color-bg-light);
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-    align-items: center;
-  }
-
-  .value-image-placeholder {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .mock-browser {
-    width: 100%;
-    max-width: 440px;
-    background-color: var(--color-bg-white);
-    border: 1px solid var(--color-border);
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-  }
-
-  .browser-bar {
-    background-color: #f3f4f6;
-    padding: 10px var(--spacing-md);
-    border-bottom: 1px solid var(--color-border);
-    display: flex;
-    gap: 6px;
-  }
-
-  .browser-bar .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #d1d5db;
-    display: inline-block;
-  }
-
-  .browser-bar .dot:nth-child(1) { background-color: #f87171; }
-  .browser-bar .dot:nth-child(2) { background-color: #fbbf24; }
-  .browser-bar .dot:nth-child(3) { background-color: #34d399; }
-
-  .browser-content {
-    padding: var(--spacing-lg);
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-    background-color: #f9fafb;
-    min-height: 180px;
-  }
-
-  .chat-bubble {
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: 12px;
-    font-size: 0.85rem;
-    max-width: 80%;
-    font-family: var(--font-sans);
-    line-height: 1.4;
-  }
-
-  .chat-bubble.user {
-    background-color: var(--color-primary-light);
-    color: var(--color-primary-hover);
-    align-self: flex-end;
-    border-bottom-right-radius: 0;
-  }
-
-  .chat-bubble.assistant {
-    background-color: var(--color-ai-light);
-    color: var(--color-ai-hover);
-    align-self: flex-start;
-    border-bottom-left-radius: 0;
-    border: 1px solid rgba(99, 102, 241, 0.2);
-  }
-
-  .value-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .value-actions {
-    margin-top: var(--spacing-md);
-  }
-
-  /* CTA Banner Section styling */
-  .cta-banner-section {
-    background-color: var(--color-bg-dark);
+  .section-subtitle {
     color: var(--color-text-light);
-    padding-top: var(--spacing-xxxl);
-    padding-bottom: var(--spacing-xxxl);
+    font-size: var(--font-size-lg);
+    margin-top: var(--spacing-3);
+    margin-bottom: var(--spacing-8);
+    max-width: 700px;
   }
 
-  .cta-banner-section h2 {
-    color: var(--color-bg-white);
-    margin-bottom: var(--spacing-md);
-  }
-
-  .cta-banner-text {
-    font-size: 1.15rem;
-    color: rgba(255, 255, 255, 0.85);
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: var(--spacing-xl);
-  }
-
-  .cta-banner-actions {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-    justify-content: center;
-  }
-
-  .btn-cta {
-    background-color: var(--color-primary-light);
-    color: var(--color-primary);
-  }
-
-  .btn-cta:hover {
-    background-color: white;
-    color: var(--color-primary-hover);
-  }
-
-  .btn-cta-secondary {
-    color: white;
-    border-color: rgba(255, 255, 255, 0.3);
-  }
-
-  .btn-cta-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+  .services-grid {
+    display: grid;
+    gap: var(--spacing-6);
   }
 
   @media (min-width: 768px) {
-    .cta-banner-actions {
-      flex-direction: row;
-      gap: var(--spacing-lg);
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
+  }
+
+  @media (min-width: 1025px) {
+    .services-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .testimonials-section {
+    background-color: var(--color-bg-alt);
+  }
+
+  .testimonials-grid {
+    display: grid;
+    gap: var(--spacing-6);
+    margin-top: var(--spacing-8);
+  }
+
+  @media (min-width: 768px) {
+    .testimonials-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .testimonials-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .cta-section {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #1e40af 100%);
+    color: var(--color-text-inverse);
+  }
+
+  .cta-inner {
+    text-align: center;
+    max-width: 600px;
+  }
+
+  .cta-inner h2 {
+    color: var(--color-text-inverse);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .cta-inner p {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-8);
+    opacity: 0.95;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: var(--spacing-4);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-buttons .btn-secondary {
+    color: var(--color-text-inverse);
+    border-color: var(--color-text-inverse);
+  }
+
+  .cta-buttons .btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.15);
   }
 </style>

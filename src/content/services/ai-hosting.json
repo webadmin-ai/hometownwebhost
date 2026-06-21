@@ -1,0 +1,22 @@
+{
+  "title": "AI-Enabled Web Hosting",
+  "description": "Revolutionary hosting with built-in AI that lets you manage your website by simply talking to it in plain English. No technical skills required — just tell your site what you want changed and the AI handles the rest.",
+  "icon": "sparkles",
+  "features": [
+    "Everything in Basic Hosting",
+    "AI-powered website management",
+    "Update content by talking in plain English",
+    "AI-generated SEO optimization",
+    "Smart image optimization",
+    "Automated content suggestions",
+    "Priority support",
+    "10 GB storage"
+  ],
+  "targetAudience": [
+    "Small business owners who want hands-off management",
+    "Non-technical users who need website updates",
+    "Busy professionals without time for manual updates"
+  ],
+  "order": 2,
+  "body": "Our AI-Enabled hosting is a game-changer for small business owners. Instead of learning complicated website tools or hiring a developer for every small change, simply tell your website what you want in plain English. Want to update your hours? Add a new menu item? Change your homepage banner? Just say it and the AI makes it happen."
+}

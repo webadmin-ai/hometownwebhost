@@ -1,247 +1,130 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-
-const title = "About Our Hometown Web Hosting Company";
-const description = "Learn about the mission, team, and values behind Home Town Web Host. Discover how we support local restaurants, plumbers, and contractors.";
 ---
 
-<BaseLayout title={title} description={description}>
-  <!-- About Hero Section -->
-  <Hero 
-    heading="Supporting Local Business" 
-    subheading="We are a neighborhood-first hosting provider focused on delivering world-class speed, reliability, and modern AI tools to local shops."
-    ctaText="Contact Our Team"
-    ctaLink="/contact"
-  />
+<BaseLayout
+  title="About Home Town Web Host - Our Mission and Story"
+  description="Learn about Home Town Web Host, our mission to empower small local businesses with affordable, AI-enabled web hosting solutions."
+>
+  <section class="section page-header">
+    <div class="container">
+      <h1>About Home Town Web Host</h1>
+    </div>
+  </section>
 
-  <!-- Mission Statement - Req 6.1 -->
-  <section class="section mission-section" aria-labelledby="mission-heading">
-    <div class="container text-center">
-      <span class="section-tag">Our Mission</span>
-      <h2 id="mission-heading">Simple, Powerful, Neighborly Hosting</h2>
-      <p class="mission-text">
-        At Home Town Web Host, our mission is to empower the heart of our community—the small local business owners—by providing affordable, top-tier, and incredibly reliable web hosting services. We believe that restaurants, landscapers, plumbers, electricians, and local contractors deserve a modern, high-performance website without the high-stress technical complications. By blending lightning-fast servers with innovative, conversational AI website updates, we make digital management completely accessible and stress-free, helping our neighbors grow their business and succeed in a modern digital landscape.
+  <section class="section" aria-labelledby="mission-heading">
+    <div class="container content-wrapper">
+      <h2 id="mission-heading">Our Mission</h2>
+      <p>
+        At Home Town Web Host, our mission is to empower small local businesses and individuals with affordable, reliable web hosting that makes getting online simple and stress-free. We believe every local restaurant, landscaping company, plumbing service, electrical contractor, and roofing business deserves a professional online presence — without needing a computer science degree or a massive budget. We are committed to bridging the technology gap for small business owners by providing hosting solutions that are not only powerful and reliable but also genuinely easy to use, backed by real people who care about your success.
       </p>
     </div>
   </section>
 
-  <!-- How We Support Local Businesses & Target Customers - Req 6.2, 6.3 -->
-  <section class="section support-section" aria-labelledby="support-heading">
-    <div class="container grid-1-2">
-      <div class="support-content">
-        <span class="section-tag">Community First</span>
-        <h2 id="support-heading">How We Back Our Local Business Owners</h2>
-        <p>
-          We know that running a local service business is a 24/7 job. Whether you are out on a residential plumbing call, managing a landscape crew, or running a busy dinner rush, the last thing you have time for is troubleshooting web servers or editing complex code.
-        </p>
-        <p>
-          We support our local economy by keeping prices transparent and fair, and by offering our revolutionary <strong>plain-English AI update assistant</strong>. This tool lets you send a text-like request to update your hours, menus, or seasonal service specials, and our AI does it for you instantly. 
-        </p>
-        <p>
-          Plus, a portion of every hosting subscription goes directly back into local community sponsorships and charity events, because when our hometown businesses thrive, the whole community wins!
-        </p>
-      </div>
-
-      <div class="target-audiences-box">
-        <h3>🏠 Who We Proudly Serve</h3>
-        <p class="audiences-intro">We build custom hosting solutions suited to the exact daily needs of local industries:</p>
-        <ul role="list" class="audiences-list">
-          <li>
-            <strong>🍔 Local Restaurants & Cafes:</strong> 
-            Instant updates for seasonal menu specials, pricing changes, and hours.
-          </li>
-          <li>
-            <strong>🌱 Landscaping Contractors:</strong> 
-            Promote seasonal spring cleanups or winter snow plowing services instantly.
-          </li>
-          <li>
-            <strong>🔧 Plumbers, Electricians & Roofers:</strong> 
-            Make it easy for local clients to find your phone number and request a service call on the go.
-          </li>
-          <li>
-            <strong>💼 Personal Portfolios & Blogs:</strong> 
-            Fast, secure hosting for individuals wanting their own unique corner of the web.
-          </li>
-        </ul>
-      </div>
+  <section class="section alt-bg" aria-labelledby="customers-heading">
+    <div class="container content-wrapper">
+      <h2 id="customers-heading">Who We Serve</h2>
+      <p>
+        We specialize in serving small local businesses and individuals who need a reliable online presence. Our customers include:
+      </p>
+      <ul class="audience-list">
+        <li>
+          <h3>Restaurants &amp; Cafes</h3>
+          <p>From family diners to specialty cafes, we help food businesses showcase their menus, hours, and location to hungry local customers.</p>
+        </li>
+        <li>
+          <h3>Landscapers &amp; Lawn Care</h3>
+          <p>We help outdoor service professionals display their work, collect leads, and build credibility with before-and-after galleries.</p>
+        </li>
+        <li>
+          <h3>General Contractors</h3>
+          <p>Plumbers, electricians, roofers, and other tradespeople use our hosting to establish trust, list services, and capture new business.</p>
+        </li>
+        <li>
+          <h3>Individuals</h3>
+          <p>Personal bloggers, photographers, artists, and hobbyists who want their own corner of the internet at an affordable price.</p>
+        </li>
+      </ul>
     </div>
   </section>
 
-  <!-- Company Founding & Team Info - Req 6.4 -->
-  <section class="section team-section" aria-labelledby="team-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Our Story</span>
-        <h2 id="team-heading">Founded by Local Tech Veterans</h2>
-        <p class="section-intro">Behind Home Town Web Host is a team of certified professionals who live right in your community.</p>
-      </div>
+  <section class="section" aria-labelledby="local-heading">
+    <div class="container content-wrapper">
+      <h2 id="local-heading">Supporting Local Businesses</h2>
+      <p>
+        We understand that local businesses are the backbone of every community. That's why we go beyond just hosting — we provide the tools, support, and guidance small business owners need to succeed online. Our AI-powered website management feature was designed specifically for busy business owners who want to keep their site up to date without hiring a developer or spending hours learning complicated software. We're proud to help local businesses compete in the digital age while keeping costs manageable.
+      </p>
+    </div>
+  </section>
 
-      <div class="grid-1-2">
-        <div class="story-content-box">
-          <h3>The Spark That Started It</h3>
-          <p>
-            Home Town Web Host was founded in 2025 after our founder, an experienced cloud infrastructure engineer, tried to help a local electrician friend set up his business website. He was shocked by how complicated and expensive typical hosting platforms had become for non-technical users. 
-          </p>
-          <p>
-            We realized that local tradespeople and small shops were being left behind by high-tech jargon and overpriced agencies. We built this platform from the ground up to solve that exact problem.
-          </p>
-        </div>
-
-        <div class="certifications-box">
-          <h3>🛡️ Trust and Certifications</h3>
-          <p>We combine friendly local service with enterprise-grade standards:</p>
-          <ul role="list" class="certs-list">
-            <li>
-              <strong>AWS Certified Cloud Practitioners:</strong> 
-              Our servers run on certified cloud networks optimized for peak local latency.
-            </li>
-            <li>
-              <strong>WCAG 2.1 AA Compliance Experts:</strong> 
-              Every theme and layout is built from the ground up to be accessible for visitors with disabilities.
-            </li>
-            <li>
-              <strong>Green Energy Powered:</strong> 
-              Our server infrastructure partner offsets 100% of power consumption with renewable energy credits.
-            </li>
-          </ul>
-        </div>
-      </div>
+  <section class="section alt-bg" aria-labelledby="story-heading">
+    <div class="container content-wrapper">
+      <h2 id="story-heading">Our Story</h2>
+      <p>
+        Home Town Web Host was founded with a simple observation: most web hosting companies are built for developers, agencies, and tech-savvy users — not for the local plumber, the neighborhood restaurant, or the independent landscaper. We saw small business owners struggling with overcomplicated hosting platforms, paying too much for features they'd never use, and feeling lost when they needed help.
+      </p>
+      <p>
+        So we built something different. Home Town Web Host strips away the complexity and gives small businesses exactly what they need: reliable hosting, simple tools, and friendly support. When we added our AI website management feature, it was a game-changer — business owners could finally update their own websites without any technical knowledge, just by describing what they wanted in plain English.
+      </p>
+      <p>
+        Today, we're proud to serve hundreds of local businesses and individuals across the country, helping them build and maintain their online presence with confidence.
+      </p>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  /* Section Header */
-  .section-header {
-    text-align: center;
-    max-width: 680px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: var(--spacing-xxl);
+  .page-header {
+    background-color: var(--color-bg-alt);
+    padding-bottom: var(--spacing-8);
   }
 
-  .section-tag {
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--color-primary);
-    letter-spacing: 1px;
-    display: inline-block;
-    margin-bottom: var(--spacing-sm);
-  }
-
-  .section-intro {
-    font-size: 1.1rem;
-    color: var(--color-text-muted);
-  }
-
-  .text-center {
-    text-align: center;
-  }
-
-  /* Mission section */
-  .mission-section {
-    background-color: var(--color-primary-light);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .mission-text {
+  .content-wrapper {
     max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: clamp(1.1rem, 2vw, 1.25rem);
-    line-height: 1.7;
-    color: var(--color-text-dark);
+  }
+
+  .content-wrapper p {
+    color: var(--color-text);
+    line-height: 1.8;
+    margin-bottom: var(--spacing-4);
+  }
+
+  .content-wrapper h2 {
+    margin-bottom: var(--spacing-6);
+  }
+
+  .alt-bg {
+    background-color: var(--color-bg-alt);
+  }
+
+  .audience-list {
+    margin-top: var(--spacing-6);
+    display: grid;
+    gap: var(--spacing-6);
+  }
+
+  @media (min-width: 768px) {
+    .audience-list {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .audience-list li {
+    padding: var(--spacing-5);
+    background-color: var(--color-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  .audience-list h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-2);
+    color: var(--color-primary);
+  }
+
+  .audience-list p {
+    color: var(--color-text-light);
+    font-size: var(--font-size-sm);
     margin-bottom: 0;
-  }
-
-  /* Support Section and audiences */
-  .support-section {
-    background-color: var(--color-bg-white);
-  }
-
-  .target-audiences-box {
-    background-color: var(--color-bg-light);
-    border: 1px solid var(--color-border);
-    padding: var(--spacing-xl);
-    border-radius: 12px;
-  }
-
-  .target-audiences-box h3 {
-    font-size: 1.25rem;
-    color: var(--color-text-dark);
-    margin-top: 0;
-    margin-bottom: var(--spacing-sm);
-  }
-
-  .audiences-intro {
-    font-size: 0.95rem;
-    color: var(--color-text-dark);
-    margin-bottom: var(--spacing-md);
-  }
-
-  .audiences-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-  }
-
-  .audiences-list li {
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-    line-height: 1.5;
-  }
-
-  .audiences-list strong {
-    color: var(--color-text-dark);
-    display: block;
-    font-size: 0.95rem;
-    margin-bottom: 2px;
-  }
-
-  /* Team & Certifications */
-  .team-section {
-    background-color: #f9fafb;
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .story-content-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .story-content-box h3, .certifications-box h3 {
-    font-size: 1.25rem;
-    margin-top: 0;
-    margin-bottom: var(--spacing-md);
-    color: var(--color-text-dark);
-  }
-
-  .certifications-box {
-    background-color: var(--color-bg-white);
-    border: 1px solid var(--color-border);
-    padding: var(--spacing-xl);
-    border-radius: 12px;
-  }
-
-  .certs-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-  }
-
-  .certs-list li {
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-    line-height: 1.5;
-  }
-
-  .certs-list strong {
-    color: var(--color-text-dark);
-    display: block;
-    margin-bottom: 2px;
   }
 </style>

@@ -1,158 +1,189 @@
 ---
-import { siteConfig } from '../config';
 import MobileMenu from './MobileMenu.astro';
 
-const pathname = new URL(Astro.request.url).pathname;
-const activeClass = (path: string) => {
-  if (path === '/' && pathname === '/') return 'active';
-  if (path !== '/' && pathname.startsWith(path)) return 'active';
-  return '';
-};
+const currentPath = Astro.url.pathname;
 
-const navItems = [
-  { label: 'Home', path: '/' },
-  { label: 'Services', path: '/services' },
-  { label: 'Pricing', path: '/pricing' },
-  { label: 'About', path: '/about' },
-  { label: 'Contact', path: '/contact' },
+const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'Services', href: '/services/' },
+  { label: 'Pricing', href: '/pricing/' },
+  { label: 'About', href: '/about/' },
+  { label: 'Contact', href: '/contact/' },
 ];
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
 ---
 
 <header class="site-header">
-  <div class="container header-container">
-    <a href="/" class="logo-link" aria-label="Home Town Web Host Home">
-      <span class="logo-icon">🏠</span>
-      <span class="logo-text">{siteConfig.name}</span>
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label="Home Town Web Host - Home">
+      Home Town Web Host
     </a>
 
-    <!-- Desktop Navigation Menu (Req 7.3, 7.4) -->
     <nav class="desktop-nav" aria-label="Main navigation">
-      <ul role="list">
-        {navItems.map(item => (
+      <ul>
+        {navLinks.map(link => (
           <li>
-            <a 
-              href={item.path} 
-              class={`nav-link ${activeClass(item.path)}`}
-              aria-current={activeClass(item.path) ? 'page' : undefined}
+            <a
+              href={link.href}
+              aria-current={isActive(link.href) ? 'page' : undefined}
+              class:list={['nav-link', { active: isActive(link.href) }]}
             >
-              {item.label}
+              {link.label}
             </a>
           </li>
         ))}
       </ul>
     </nav>
 
-    <!-- Mobile Hamburger Menu Button (Req 7.2) -->
-    <button 
-      id="hamburger-menu-button" 
-      class="hamburger-btn" 
-      aria-haspopup="true" 
-      aria-expanded="false" 
-      aria-controls="mobile-menu-container"
+    <button
+      class="hamburger"
+      type="button"
       aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="6" x2="21" y2="6"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>
-      </svg>
+      <span class="hamburger-line" aria-hidden="true"></span>
+      <span class="hamburger-line" aria-hidden="true"></span>
+      <span class="hamburger-line" aria-hidden="true"></span>
     </button>
   </div>
 
-  <!-- Mobile Menu Drawer Overlay component -->
   <MobileMenu />
 </header>
 
 <style>
   .site-header {
-    background-color: var(--color-bg-white);
-    border-bottom: 1px solid var(--color-border);
     position: sticky;
     top: 0;
     z-index: 100;
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
   }
 
-  .header-container {
+  .header-inner {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    height: 70px;
-    padding-top: 0;
-    padding-bottom: 0;
+    min-height: 64px;
   }
 
-  /* Logo Links */
-  .logo-link {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    font-size: 1.25rem;
+  .logo {
+    font-size: var(--font-size-xl);
     font-weight: 800;
     color: var(--color-primary);
-  }
-
-  .logo-link:hover {
     text-decoration: none;
-    color: var(--color-primary-hover);
-  }
-
-  .logo-icon {
-    font-size: 1.5rem;
-  }
-
-  /* Desktop Navigation Links */
-  .desktop-nav {
-    display: none; /* Hidden on mobile (Req 7.1) */
+    white-space: nowrap;
   }
 
   .desktop-nav ul {
     display: flex;
-    gap: var(--spacing-md);
+    gap: var(--spacing-6);
   }
 
   .nav-link {
-    font-weight: 600;
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--touch-target-min);
+    padding: var(--spacing-2) var(--spacing-1);
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
     border-bottom: 2px solid transparent;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
   }
 
   .nav-link:hover {
     color: var(--color-primary);
-    text-decoration: none;
   }
 
-  /* Active Menu Item Visual Highlight (Req 5.4) */
   .nav-link.active {
     color: var(--color-primary);
     border-bottom-color: var(--color-primary);
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    font-weight: 700;
   }
 
-  /* Mobile Hamburger Button */
-  .hamburger-btn {
-    display: flex;
-    align-items: center;
+  .hamburger {
+    display: none;
+    flex-direction: column;
     justify-content: center;
+    gap: 5px;
+    width: var(--touch-target-min);
+    height: var(--touch-target-min);
+    padding: var(--spacing-2);
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--color-text-dark);
-    width: var(--touch-target-min); /* Req 7.5 */
-    height: var(--touch-target-min); /* Req 7.5 */
   }
 
-  /* Breakpoint transitions */
-  @media (min-width: 768px) {
+  .hamburger-line {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-text);
+    transition: transform var(--transition-base), opacity var(--transition-base);
+  }
+
+  @media (max-width: 767px) {
     .desktop-nav {
-      display: block; /* Visible on tablet and desktop (Req 7.3, 7.4) */
+      display: none;
     }
 
-    .hamburger-btn {
-      display: none; /* Hidden on larger screens */
+    .hamburger {
+      display: flex;
     }
   }
 </style>
+
+<script>
+  const hamburger = document.querySelector('.hamburger') as HTMLButtonElement;
+  const mobileMenu = document.getElementById('mobile-menu') as HTMLElement;
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', String(!isOpen));
+      mobileMenu.classList.toggle('open', !isOpen);
+      document.body.style.overflow = !isOpen ? 'hidden' : '';
+
+      if (!isOpen) {
+        const firstLink = mobileMenu.querySelector('a') as HTMLElement;
+        firstLink?.focus();
+      }
+    });
+
+    mobileMenu.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+        hamburger.focus();
+      }
+
+      if (e.key === 'Tab') {
+        const focusable = mobileMenu.querySelectorAll<HTMLElement>('a, button');
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+</script>
