@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaSection from '../components/CtaSection.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import { getCollection } from 'astro:content';
 
@@ -10,14 +12,10 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
   title="Web Hosting Services for Small Businesses"
   description="Explore our web hosting services including basic hosting, AI-enabled website management, and custom solutions for small local businesses."
 >
-  <section class="section page-header">
-    <div class="container">
-      <h1>Our Hosting Services</h1>
-      <p class="page-intro">
-        From basic web hosting to AI-powered website management, we have the right plan for your small business or personal site.
-      </p>
-    </div>
-  </section>
+  <PageHeader
+    heading="Our Hosting Services"
+    subheading="From basic web hosting to AI-powered website management, we have the right plan for your small business or personal site."
+  />
 
   <section class="section" aria-labelledby="services-list-heading">
     <div class="container">
@@ -54,7 +52,12 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
 
   <section class="section ai-highlight" aria-labelledby="ai-heading">
     <div class="container">
-      <h2 id="ai-heading">AI-Powered Website Management</h2>
+      <div class="ai-header">
+        <div class="ai-icon-wrap" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z"/><path d="M5 5l1.5 1.5M18.5 5L17 6.5M17 18.5l1.5 1.5M5 19l1.5-1.5"/></svg>
+        </div>
+        <h2 id="ai-heading">AI-Powered Website Management</h2>
+      </div>
       <div class="ai-content">
         <div class="ai-description">
           <p>
@@ -83,31 +86,17 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     </div>
   </section>
 
-  <section class="section cta-section" aria-labelledby="services-cta">
-    <div class="container cta-inner">
-      <h2 id="services-cta">Find the Right Plan for You</h2>
-      <p>Compare our hosting plans and find the perfect fit for your business.</p>
-      <div class="cta-buttons">
-        <a href="/pricing/" class="btn btn-primary">View Pricing</a>
-        <a href="/contact/" class="btn btn-secondary">Ask a Question</a>
-      </div>
-    </div>
-  </section>
+  <CtaSection
+    heading="Find the Right Plan for You"
+    body="Compare our hosting plans and find the perfect fit for your business."
+    primaryText="View Pricing"
+    primaryLink="/pricing/"
+    secondaryText="Ask a Question"
+    secondaryLink="/contact/"
+  />
 </BaseLayout>
 
 <style>
-  .page-header {
-    background-color: var(--color-bg-alt);
-    padding-bottom: var(--spacing-8);
-  }
-
-  .page-intro {
-    color: var(--color-text-light);
-    font-size: var(--font-size-lg);
-    margin-top: var(--spacing-4);
-    max-width: 700px;
-  }
-
   .services-grid {
     display: grid;
     gap: var(--spacing-10);
@@ -143,14 +132,37 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     font-weight: 500;
   }
 
+  /* AI highlight section */
   .ai-highlight {
     background-color: var(--color-bg-alt);
+  }
+
+  .ai-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .ai-icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border-radius: var(--radius-lg);
+  }
+
+  .ai-header h2 {
+    margin-bottom: 0;
   }
 
   .ai-content {
     display: grid;
     gap: var(--spacing-8);
-    margin-top: var(--spacing-6);
   }
 
   @media (min-width: 768px) {
@@ -183,6 +195,7 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     list-style: decimal;
     margin-bottom: var(--spacing-2);
     padding-left: var(--spacing-2);
+    line-height: 1.6;
   }
 
   .ai-benefits h3 {
@@ -199,6 +212,7 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
   .ai-benefits li {
     padding-left: var(--spacing-5);
     position: relative;
+    line-height: 1.6;
   }
 
   .ai-benefits li::before {
@@ -207,42 +221,5 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     left: 0;
     color: var(--color-secondary);
     font-weight: 700;
-  }
-
-  .cta-section {
-    background: linear-gradient(135deg, var(--color-primary) 0%, #1e40af 100%);
-    color: var(--color-text-inverse);
-  }
-
-  .cta-inner {
-    text-align: center;
-    max-width: 600px;
-  }
-
-  .cta-inner h2 {
-    color: var(--color-text-inverse);
-    margin-bottom: var(--spacing-4);
-  }
-
-  .cta-inner p {
-    font-size: var(--font-size-lg);
-    margin-bottom: var(--spacing-8);
-    opacity: 0.95;
-  }
-
-  .cta-buttons {
-    display: flex;
-    gap: var(--spacing-4);
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .cta-buttons .btn-secondary {
-    color: var(--color-text-inverse);
-    border-color: var(--color-text-inverse);
-  }
-
-  .cta-buttons .btn-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.15);
   }
 </style>

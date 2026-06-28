@@ -10,63 +10,368 @@ const { heading, subheading, ctaText, ctaLink } = Astro.props;
 ---
 
 <section class="hero">
+  <div class="hero-bg-dots" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+
   <div class="container hero-inner">
-    <h1>{heading}</h1>
-    <p class="hero-subheading">{subheading}</p>
-    <a href={ctaLink} class="btn btn-primary hero-cta">{ctaText}</a>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-pulse"></span>
+        Trusted by 500+ local businesses
+      </div>
+      <h1>{heading}</h1>
+      <p class="hero-subheading">{subheading}</p>
+      <div class="hero-ctas">
+        <a href={ctaLink} class="btn btn-accent">{ctaText}</a>
+        <a href="/about/" class="btn btn-ghost">Our Story &rarr;</a>
+      </div>
+      <div class="hero-proof">
+        <div class="proof-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          99.9% Uptime SLA
+        </div>
+        <div class="proof-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          24/7 Support
+        </div>
+        <div class="proof-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          No Tech Skills Required
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-illustration" aria-hidden="true">
+      <svg viewBox="0 0 500 370" xmlns="http://www.w3.org/2000/svg" class="browser-mockup" role="presentation">
+        <defs>
+          <linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#1a56db"/>
+            <stop offset="100%" style="stop-color:#2563eb"/>
+          </linearGradient>
+          <linearGradient id="heroImgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#dbeafe"/>
+            <stop offset="100%" style="stop-color:#bfdbfe"/>
+          </linearGradient>
+          <filter id="browserShadow">
+            <feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="rgba(0,0,0,0.35)"/>
+          </filter>
+        </defs>
+
+        <g filter="url(#browserShadow)">
+          <!-- Browser chrome -->
+          <rect x="0" y="0" width="500" height="370" rx="12" fill="#1e293b"/>
+
+          <!-- Title bar background -->
+          <rect x="0" y="0" width="500" height="44" fill="#1e293b" rx="12"/>
+          <rect x="0" y="32" width="500" height="12" fill="#1e293b"/>
+
+          <!-- Traffic lights -->
+          <circle cx="22" cy="22" r="6" fill="#ef4444"/>
+          <circle cx="42" cy="22" r="6" fill="#f59e0b"/>
+          <circle cx="62" cy="22" r="6" fill="#22c55e"/>
+
+          <!-- URL bar -->
+          <rect x="86" y="11" width="326" height="22" rx="11" fill="#334155"/>
+          <text x="104" y="26" fill="#94a3b8" font-size="11" font-family="system-ui,sans-serif">&#x1F512; yourbusiness.com</text>
+
+          <!-- Menu dots -->
+          <circle cx="434" cy="22" r="2.5" fill="#64748b"/>
+          <circle cx="444" cy="22" r="2.5" fill="#64748b"/>
+          <circle cx="454" cy="22" r="2.5" fill="#64748b"/>
+          <rect x="464" y="14" width="22" height="16" rx="4" fill="#475569"/>
+
+          <!-- Page content -->
+          <rect x="0" y="44" width="500" height="326" fill="#ffffff"/>
+
+          <!-- Fake website nav -->
+          <rect x="0" y="44" width="500" height="52" fill="url(#navGrad)"/>
+          <rect x="20" y="59" width="120" height="16" rx="4" fill="rgba(255,255,255,0.25)"/>
+          <rect x="290" y="63" width="40" height="9" rx="3" fill="rgba(255,255,255,0.3)"/>
+          <rect x="340" y="63" width="40" height="9" rx="3" fill="rgba(255,255,255,0.3)"/>
+          <rect x="396" y="57" width="84" height="22" rx="5" fill="rgba(255,255,255,0.95)"/>
+
+          <!-- Fake hero section -->
+          <rect x="0" y="96" width="500" height="138" fill="#f8fafc"/>
+          <!-- Hero text blocks -->
+          <rect x="24" y="114" width="210" height="19" rx="4" fill="#1e293b"/>
+          <rect x="24" y="141" width="240" height="12" rx="3" fill="#cbd5e1"/>
+          <rect x="24" y="159" width="200" height="12" rx="3" fill="#cbd5e1"/>
+          <rect x="24" y="177" width="160" height="12" rx="3" fill="#cbd5e1"/>
+          <!-- CTA button on fake site -->
+          <rect x="24" y="202" width="100" height="26" rx="5" fill="#1a56db"/>
+          <rect x="134" y="202" width="88" height="26" rx="5" fill="none" stroke="#1a56db" stroke-width="2"/>
+
+          <!-- Hero image placeholder -->
+          <rect x="308" y="104" width="168" height="118" rx="8" fill="url(#heroImgGrad)"/>
+          <!-- Simple mountain/landscape sketch in placeholder -->
+          <polygon points="308,222 368,148 408,186 436,158 476,222" fill="#bfdbfe"/>
+          <circle cx="456" cy="124" r="14" fill="#fde68a" opacity="0.8"/>
+
+          <!-- Divider line -->
+          <rect x="20" y="238" width="460" height="1" fill="#e2e8f0"/>
+
+          <!-- 3 feature icons strip -->
+          <rect x="0" y="239" width="500" height="56" fill="#ffffff"/>
+          <rect x="28" y="251" width="28" height="28" rx="14" fill="#eff6ff"/>
+          <rect x="34" y="257" width="16" height="16" rx="8" fill="#bfdbfe"/>
+          <rect x="66" y="254" width="76" height="9" rx="3" fill="#1e293b"/>
+          <rect x="66" y="267" width="56" height="7" rx="2" fill="#e2e8f0"/>
+
+          <rect x="196" y="251" width="28" height="28" rx="14" fill="#f0fdf4"/>
+          <rect x="202" y="257" width="16" height="16" rx="8" fill="#bbf7d0"/>
+          <rect x="234" y="254" width="76" height="9" rx="3" fill="#1e293b"/>
+          <rect x="234" y="267" width="56" height="7" rx="2" fill="#e2e8f0"/>
+
+          <rect x="364" y="251" width="28" height="28" rx="14" fill="#fffbeb"/>
+          <rect x="370" y="257" width="16" height="16" rx="8" fill="#fde68a"/>
+          <rect x="402" y="254" width="76" height="9" rx="3" fill="#1e293b"/>
+          <rect x="402" y="267" width="56" height="7" rx="2" fill="#e2e8f0"/>
+
+          <!-- Service cards section -->
+          <rect x="0" y="295" width="500" height="75" fill="#f8fafc"/>
+          <!-- Card 1 -->
+          <rect x="16" y="306" width="146" height="54" rx="7" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+          <rect x="16" y="306" width="146" height="4" rx="7" fill="#1a56db"/>
+          <rect x="27" y="317" width="46" height="8" rx="2" fill="#1e293b"/>
+          <rect x="27" y="329" width="110" height="6" rx="2" fill="#e2e8f0"/>
+          <rect x="27" y="339" width="90" height="6" rx="2" fill="#e2e8f0"/>
+          <!-- Card 2 -->
+          <rect x="177" y="306" width="146" height="54" rx="7" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+          <rect x="177" y="306" width="146" height="4" rx="7" fill="#1a56db"/>
+          <rect x="188" y="317" width="46" height="8" rx="2" fill="#1e293b"/>
+          <rect x="188" y="329" width="110" height="6" rx="2" fill="#e2e8f0"/>
+          <rect x="188" y="339" width="90" height="6" rx="2" fill="#e2e8f0"/>
+          <!-- Card 3 -->
+          <rect x="338" y="306" width="146" height="54" rx="7" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+          <rect x="338" y="306" width="146" height="4" rx="7" fill="#1a56db"/>
+          <rect x="349" y="317" width="46" height="8" rx="2" fill="#1e293b"/>
+          <rect x="349" y="329" width="110" height="6" rx="2" fill="#e2e8f0"/>
+          <rect x="349" y="339" width="90" height="6" rx="2" fill="#e2e8f0"/>
+        </g>
+      </svg>
+
+      <div class="floating-badge badge-uptime">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>99.9% Uptime</span>
+      </div>
+      <div class="floating-badge badge-secure">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a56db" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>SSL Secured</span>
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
   .hero {
-    background: linear-gradient(135deg, var(--color-primary) 0%, #2563eb 50%, #1e40af 100%);
+    position: relative;
+    background: linear-gradient(135deg, #0f172a 0%, #1a3a6e 55%, #1a56db 100%);
     color: var(--color-text-inverse);
     padding-block: var(--spacing-16);
+    overflow: hidden;
+  }
+
+  .hero-bg-dots {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+
+  .hero-orb-1 {
+    width: 500px;
+    height: 500px;
+    background: rgba(26, 86, 219, 0.25);
+    top: -150px;
+    right: -100px;
+  }
+
+  .hero-orb-2 {
+    width: 350px;
+    height: 350px;
+    background: rgba(37, 99, 235, 0.15);
+    bottom: -120px;
+    left: -80px;
   }
 
   .hero-inner {
-    text-align: center;
-    max-width: 800px;
+    position: relative;
+    display: grid;
+    gap: var(--spacing-12);
+    align-items: center;
   }
 
-  .hero h1 {
+  @media (min-width: 1025px) {
+    .hero-inner {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hero {
+      padding-block: 5rem;
+    }
+  }
+
+  /* Badge */
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    padding: var(--spacing-2) var(--spacing-4);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    margin-bottom: var(--spacing-5);
+    backdrop-filter: blur(8px);
+  }
+
+  .badge-pulse {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  /* Heading */
+  .hero-content h1 {
     color: var(--color-text-inverse);
-    margin-bottom: var(--spacing-6);
+    margin-bottom: var(--spacing-5);
+    font-size: clamp(1.875rem, 4.5vw, 3.25rem);
+    line-height: 1.15;
   }
 
   .hero-subheading {
     font-size: var(--font-size-lg);
-    line-height: 1.6;
+    line-height: 1.7;
     margin-bottom: var(--spacing-8);
-    opacity: 0.95;
+    opacity: 0.88;
+    max-width: 520px;
   }
 
-  .hero-cta {
-    font-size: var(--font-size-lg);
-    padding: var(--spacing-4) var(--spacing-8);
+  /* CTA row */
+  .hero-ctas {
+    display: flex;
+    gap: var(--spacing-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--spacing-8);
+  }
+
+  .btn-accent {
     background-color: var(--color-accent);
-    color: var(--color-text);
-    border-radius: var(--radius-md);
+    color: #111827;
     font-weight: 700;
+    font-size: var(--font-size-base);
+    padding: var(--spacing-3) var(--spacing-8);
   }
 
-  .hero-cta:hover {
+  .btn-accent:hover {
     background-color: #d97706;
+  }
+
+  .btn-ghost {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-text-inverse);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: var(--font-size-base);
+    padding: var(--spacing-3) var(--spacing-6);
+  }
+
+  .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--color-text-inverse);
+  }
+
+  /* Proof strip */
+  .hero-proof {
+    display: flex;
+    gap: var(--spacing-5);
+    flex-wrap: wrap;
+  }
+
+  .proof-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-size: var(--font-size-sm);
+    opacity: 0.85;
+  }
+
+  .proof-item svg {
+    color: #4ade80;
+    flex-shrink: 0;
+  }
+
+  /* Illustration */
+  .hero-illustration {
+    display: none;
+    position: relative;
+  }
+
+  @media (min-width: 1025px) {
+    .hero-illustration {
+      display: block;
+    }
+  }
+
+  .browser-mockup {
+    width: 100%;
+    border-radius: 12px;
+    display: block;
+  }
+
+  /* Floating badges */
+  .floating-badge {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-2) var(--spacing-3);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-text);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  }
+
+  .badge-uptime {
+    bottom: 32px;
+    left: -16px;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .badge-secure {
+    top: 28px;
+    right: -16px;
+    animation: float 4s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
   }
 
   @media (min-width: 768px) {
     .hero {
       padding-block: var(--spacing-20);
-    }
-
-    .hero-subheading {
-      font-size: var(--font-size-xl);
-    }
-  }
-
-  @media (min-width: 1025px) {
-    .hero {
-      padding-block: 6rem;
     }
   }
 </style>

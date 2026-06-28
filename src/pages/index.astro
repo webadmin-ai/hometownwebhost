@@ -20,12 +20,39 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     ctaLink="/pricing/"
   />
 
+  <!-- Stats / Trust bar -->
+  <div class="stats-bar">
+    <div class="container stats-grid">
+      <div class="stat">
+        <span class="stat-number">99.9%</span>
+        <span class="stat-label">Uptime SLA</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat">
+        <span class="stat-number">500+</span>
+        <span class="stat-label">Local Businesses Served</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat">
+        <span class="stat-number">24/7</span>
+        <span class="stat-label">Customer Support</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">Satisfaction Guaranteed</span>
+      </div>
+    </div>
+  </div>
+
   <section class="section services-overview" aria-labelledby="services-heading">
     <div class="container">
-      <h2 id="services-heading">Our Hosting Services</h2>
-      <p class="section-subtitle">
-        Web hosting designed for small local businesses — restaurants, landscapers, contractors, and individuals who want their own personal website.
-      </p>
+      <div class="section-header">
+        <h2 id="services-heading">Our Hosting Services</h2>
+        <p class="section-subtitle">
+          Web hosting designed for small local businesses — restaurants, landscapers, contractors, and individuals who want their own personal website.
+        </p>
+      </div>
       <div class="services-grid">
         {services.map(service => (
           <ServiceCard
@@ -40,9 +67,52 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     </div>
   </section>
 
+  <!-- Why choose us strip -->
+  <section class="section why-us-section" aria-labelledby="why-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="why-heading">Built for Local Business Owners</h2>
+        <p class="section-subtitle">We handle the tech so you can focus on running your business.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Rock-Solid Reliability</h3>
+          <p>Our infrastructure runs on enterprise-grade servers with redundant backups, so your site is always online when customers need it.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Quick Setup</h3>
+          <p>Get your website live in minutes, not days. Our simple onboarding guides you through every step with plain-English instructions.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Friendly Human Support</h3>
+          <p>No bots, no runaround. When you call or chat, you reach a real person who speaks your language — not tech jargon.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3>Affordable Pricing</h3>
+          <p>Plans starting under $10/month with no hidden fees. Transparent pricing designed to fit the budget of a small local business.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section testimonials-section" aria-labelledby="testimonials-heading">
     <div class="container">
-      <h2 id="testimonials-heading">What Our Customers Say</h2>
+      <div class="section-header">
+        <h2 id="testimonials-heading">What Our Customers Say</h2>
+        <p class="section-subtitle">Real reviews from real local business owners.</p>
+      </div>
       <div class="testimonials-grid">
         {testimonials.map(testimonial => (
           <Testimonial
@@ -57,26 +127,93 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
   </section>
 
   <section class="section cta-section" aria-labelledby="cta-heading">
+    <div class="cta-pattern" aria-hidden="true"></div>
     <div class="container cta-inner">
+      <div class="cta-icon-ring" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
       <h2 id="cta-heading">Ready to Get Your Business Online?</h2>
       <p>Join hundreds of local businesses who trust Home Town Web Host for their online presence.</p>
       <div class="cta-buttons">
-        <a href="/pricing/" class="btn btn-primary">See Pricing</a>
-        <a href="/contact/" class="btn btn-secondary">Contact Us</a>
+        <a href="/pricing/" class="btn btn-accent-cta">See Pricing</a>
+        <a href="/contact/" class="btn btn-ghost-cta">Contact Us</a>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
+  /* Stats bar */
+  .stats-bar {
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .stats-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--spacing-6);
+    padding-block: var(--spacing-6);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-1);
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .stat-number {
+    font-size: var(--font-size-3xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    text-align: center;
+  }
+
+  .stat-divider {
+    width: 1px;
+    height: 48px;
+    background: var(--color-border);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 767px) {
+    .stats-grid {
+      gap: var(--spacing-4);
+    }
+    .stat-divider {
+      display: none;
+    }
+    .stat {
+      min-width: calc(50% - var(--spacing-4));
+    }
+  }
+
+  /* Section headers */
+  .section-header {
+    margin-bottom: var(--spacing-10);
+  }
+
   .section-subtitle {
     color: var(--color-text-light);
     font-size: var(--font-size-lg);
     margin-top: var(--spacing-3);
-    margin-bottom: var(--spacing-8);
-    max-width: 700px;
+    max-width: 620px;
+    line-height: 1.6;
   }
 
+  /* Services */
   .services-grid {
     display: grid;
     gap: var(--spacing-6);
@@ -94,14 +231,60 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     }
   }
 
-  .testimonials-section {
+  /* Why us */
+  .why-us-section {
     background-color: var(--color-bg-alt);
+  }
+
+  .why-grid {
+    display: grid;
+    gap: var(--spacing-6);
+  }
+
+  @media (min-width: 768px) {
+    .why-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .why-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+
+  .why-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border-radius: var(--radius-lg);
+    flex-shrink: 0;
+  }
+
+  .why-item h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .why-item p {
+    color: var(--color-text-light);
+    line-height: 1.7;
+    font-size: var(--font-size-base);
+  }
+
+  /* Testimonials */
+  .testimonials-section {
+    background-color: var(--color-bg);
   }
 
   .testimonials-grid {
     display: grid;
     gap: var(--spacing-6);
-    margin-top: var(--spacing-8);
   }
 
   @media (min-width: 768px) {
@@ -116,14 +299,39 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     }
   }
 
+  /* CTA section */
   .cta-section {
-    background: linear-gradient(135deg, var(--color-primary) 0%, #1e40af 100%);
+    position: relative;
+    background: linear-gradient(135deg, #0f172a 0%, #1a3a6e 55%, #1a56db 100%);
     color: var(--color-text-inverse);
+    overflow: hidden;
+  }
+
+  .cta-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
   }
 
   .cta-inner {
+    position: relative;
     text-align: center;
     max-width: 600px;
+  }
+
+  .cta-icon-ring {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: white;
+    margin-bottom: var(--spacing-6);
   }
 
   .cta-inner h2 {
@@ -134,7 +342,7 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
   .cta-inner p {
     font-size: var(--font-size-lg);
     margin-bottom: var(--spacing-8);
-    opacity: 0.95;
+    opacity: 0.9;
   }
 
   .cta-buttons {
@@ -144,12 +352,44 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     flex-wrap: wrap;
   }
 
-  .cta-buttons .btn-secondary {
-    color: var(--color-text-inverse);
-    border-color: var(--color-text-inverse);
+  .btn-accent-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--touch-target-min);
+    padding: var(--spacing-3) var(--spacing-8);
+    background-color: var(--color-accent);
+    color: #111827;
+    font-weight: 700;
+    font-size: var(--font-size-base);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
   }
 
-  .cta-buttons .btn-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+  .btn-accent-cta:hover {
+    background-color: #d97706;
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--touch-target-min);
+    padding: var(--spacing-3) var(--spacing-8);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-text-inverse);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    font-weight: 600;
+    font-size: var(--font-size-base);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .btn-ghost-cta:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
   }
 </style>

@@ -9,16 +9,20 @@ interface Props {
 
 const { title, description, icon, features, link } = Astro.props;
 
-const iconMap: Record<string, string> = {
-  globe: '\u{1F310}',
-  sparkles: '\u{2728}',
-  wrench: '\u{1F527}',
+const icons: Record<string, string> = {
+  globe: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+  sparkles: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z"/><path d="M5 5l1.5 1.5M18.5 5L17 6.5M17 18.5l1.5 1.5M5 19l1.5-1.5"/></svg>`,
+  wrench: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+  server: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>`,
 };
-const iconChar = icon ? iconMap[icon] || '' : '';
+
+const iconSvg = icon ? (icons[icon] || icons.globe) : icons.globe;
 ---
 
 <article class="service-card">
-  {iconChar && <span class="service-icon" aria-hidden="true">{iconChar}</span>}
+  <div class="service-icon-wrap">
+    <span class="service-icon" set:html={iconSvg}></span>
+  </div>
   <h3 class="service-title">{title}</h3>
   <p class="service-description">{description}</p>
   <ul class="service-features">
@@ -37,19 +41,27 @@ const iconChar = icon ? iconMap[icon] || '' : '';
   .service-card {
     background-color: var(--color-bg);
     border: 1px solid var(--color-border);
+    border-top: 3px solid var(--color-primary);
     border-radius: var(--radius-lg);
     padding: var(--spacing-6);
-    transition: box-shadow var(--transition-base);
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
   }
 
   .service-card:hover {
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
   }
 
-  .service-icon {
-    display: block;
-    font-size: var(--font-size-4xl);
-    margin-bottom: var(--spacing-4);
+  .service-icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: var(--color-primary-light);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-5);
+    color: var(--color-primary);
   }
 
   .service-title {
@@ -59,6 +71,7 @@ const iconChar = icon ? iconMap[icon] || '' : '';
   .service-description {
     color: var(--color-text-light);
     margin-bottom: var(--spacing-4);
+    line-height: 1.65;
   }
 
   .service-features {
@@ -71,6 +84,9 @@ const iconChar = icon ? iconMap[icon] || '' : '';
   .service-features li {
     padding-left: var(--spacing-5);
     position: relative;
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    line-height: 1.5;
   }
 
   .service-features li::before {
