@@ -496,7 +496,7 @@ export const siteConfig: SiteConfig = {
   description:
     "Web hosting for small local businesses with AI-enabled website management",
   url: "https://hometownwebhost.com",
-  contactEmail: "info@hometownwebhost.com",
+  contactEmail: "support@hometownwebhost.com",
   contactPhone: "+1-XXX-XXX-XXXX",
   contactEndpoint: import.meta.env.CONTACT_ENDPOINT,
   socialMedia: {

@@ -19,9 +19,6 @@ const hasSocial = siteConfig.socialMedia && Object.values(siteConfig.socialMedia
       <p>
         <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>
       </p>
-      <p>
-        <a href={`tel:${siteConfig.contactPhone.replace(/[^\d+]/g, '')}`}>{siteConfig.contactPhone}</a>
-      </p>
     </div>
 
     {hasSocial && (
@@ -89,10 +86,6 @@ const hasSocial = siteConfig.socialMedia && Object.values(siteConfig.socialMedia
   .footer-contact a:hover,
   .footer-contact a:focus {
     color: var(--color-text-inverse);
-  }
-
-  .footer-contact p + p {
-    margin-top: var(--spacing-2);
   }
 
   .footer-social {

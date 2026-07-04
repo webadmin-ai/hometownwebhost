@@ -3,7 +3,6 @@ export interface SiteConfig {
   description: string;
   url: string;
   contactEmail: string;
-  contactPhone: string;
   contactEndpoint: string;
   socialMedia?: {
     facebook?: string;
@@ -23,8 +22,7 @@ export const siteConfig: SiteConfig = {
   name: 'Home Town Web Host',
   description: 'Web hosting for small local businesses with AI-enabled website management',
   url: 'https://hometownwebhost.com',
-  contactEmail: 'info@hometownwebhost.com',
-  contactPhone: '(555) 123-4567',
+  contactEmail: 'support@hometownwebhost.com',
   contactEndpoint: import.meta.env.CONTACT_ENDPOINT || '/api/contact',
   socialMedia: {},
   seo: {

@@ -4,12 +4,12 @@
   "icon": "wrench",
   "features": [
     "Fully customizable hosting package",
-    "Dedicated account manager",
+    "Email hosting included",
     "Custom storage and bandwidth",
     "Advanced security features",
     "Website migration assistance",
     "Custom integrations",
-    "Priority phone support",
+    "Priority support",
     "Service level agreement (SLA)"
   ],
   "targetAudience": [
@@ -18,5 +18,5 @@
     "Organizations needing custom integrations"
   ],
   "order": 3,
-  "body": "Every business is unique, and sometimes a one-size-fits-all plan doesn't cut it. Our Custom Web Hosting is designed for businesses that need something special. Contact us and we'll build a hosting package that fits your exact needs."
+  "body": "Every business is unique, and sometimes a one-size-fits-all plan doesn't cut it. Our Custom Web Hosting is designed for businesses that need something special. Contact us and we're happy to work with you to build a hosting package that fits your exact needs."
 }

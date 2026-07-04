@@ -1,20 +1,19 @@
 {
-  "planName": "Custom Plan",
+  "planName": "Custom Web Hosting",
   "planType": "custom",
   "monthlyPrice": 0,
   "annualPrice": 0,
   "features": [
-    "Fully customizable package",
-    "Dedicated account manager",
-    "Custom storage & bandwidth",
+    "Fully customizable hosting package",
+    "Email hosting included",
+    "Custom storage and bandwidth",
     "Advanced security features",
     "Website migration assistance",
     "Custom integrations",
-    "Priority phone support",
-    "Service level agreement (SLA)",
-    "Optional AI features add-on"
+    "Priority support",
+    "Service level agreement (SLA)"
   ],
   "isPopular": false,
-  "order": 4,
+  "order": 3,
   "contactForPricing": true
 }

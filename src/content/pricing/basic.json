@@ -1,19 +1,17 @@
 {
-  "planName": "Basic Personal",
-  "planType": "basic-personal",
+  "planName": "Basic Web Hosting",
+  "planType": "basic",
   "monthlyPrice": 4.99,
-  "annualPrice": 49.99,
+  "annualPrice": 50,
   "features": [
-    "1 website",
-    "5 GB storage",
-    "Free SSL certificate",
-    "Custom domain support",
-    "Mobile-responsive design",
-    "Basic analytics",
-    "Email support"
+    "Custom domain name support",
+    "SSL certificate included",
+    "99.9% uptime guarantee",
+    "500 MB storage",
+    "Mobile-responsive templates"
   ],
   "technicalSpecs": {
-    "storage": "5 GB SSD",
+    "storage": "500 MB SSD",
     "bandwidth": "100 GB/month",
     "domains": "1 custom domain",
     "email": "1 email account",
