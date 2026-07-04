@@ -15,6 +15,7 @@ interface Props {
     amount: number;
   }[];
   contactForPricing?: boolean;
+  startingAt?: boolean;
 }
 
 const {
@@ -26,6 +27,7 @@ const {
   promotionalPrice,
   additionalCosts,
   contactForPricing = false,
+  startingAt = false,
 } = Astro.props;
 
 function formatPrice(amount: number): string {
@@ -59,6 +61,7 @@ function formatDate(dateStr: string): string {
     <div class="plan-pricing">
       <div class="price-group">
         <span class="price-label">Monthly</span>
+        {startingAt && <span class="price-prefix">Starting at</span>}
         {promotionalPrice ? (
           <div class="price-with-promo">
             <span class="price-original"><s>{formatPrice(monthlyPrice)}</s></span>
@@ -72,6 +75,7 @@ function formatDate(dateStr: string): string {
 
       <div class="price-group">
         <span class="price-label">Annual</span>
+        {startingAt && <span class="price-prefix">Starting at</span>}
         {promotionalPrice ? (
           <div class="price-with-promo">
             <span class="price-original"><s>{formatPrice(annualPrice)}</s></span>
@@ -183,6 +187,13 @@ function formatDate(dateStr: string): string {
     color: var(--color-text-light);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+  }
+
+  .price-prefix {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+    font-style: italic;
   }
 
   .price-amount {

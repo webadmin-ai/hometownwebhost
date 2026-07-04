@@ -49,9 +49,13 @@ const notes = [
             promotionalPrice={plan.data.promotionalPricing}
             additionalCosts={plan.data.additionalCosts}
             contactForPricing={plan.data.contactForPricing}
+            startingAt={plan.data.startingAt}
           />
         ))}
       </div>
+      <p class="domain-note">
+        Don't have a domain name yet? No problem — you can purchase your own custom domain on your own, or Home Town Web Host can handle the entire process for you for a small additional fee. Pricing above covers web hosting only; email hosting is available as an add-on for an additional cost.
+      </p>
     </div>
   </section>
 
@@ -97,6 +101,15 @@ const notes = [
     .pricing-grid {
       grid-template-columns: repeat(3, 1fr);
     }
+  }
+
+  .domain-note {
+    max-width: 640px;
+    margin: var(--spacing-8) auto 0;
+    text-align: center;
+    color: var(--color-text-light);
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
   }
 
   .pricing-notes {

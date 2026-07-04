@@ -19,9 +19,6 @@
     "aiFeatures": false
   },
   "isPopular": false,
-  "additionalCosts": [
-    { "description": "Domain registration (annual)", "amount": 12.99 }
-  ],
   "order": 1,
   "contactForPricing": false
 }

@@ -1,0 +1,22 @@
+# Home Town Web Host
+
+> Affordable, AI-enabled web hosting for small local businesses and individuals. Get a restaurant, landscaping business, contractor, or personal site online quickly, with no technical skills required.
+
+Home Town Web Host provides web hosting plans ranging from a simple, affordable starter tier to an AI-enabled tier that lets business owners update their own website by describing changes in plain English, plus fully custom hosting packages for businesses with unique requirements. We serve local businesses such as restaurants, landscapers, contractors, and individuals, primarily across the NY/NJ/CT area, and every plan includes real human support.
+
+## Services
+
+- [Basic Web Hosting](https://hometownwebhost.com/services/): Reliable, affordable hosting with custom domain support, free SSL, 99.9% uptime, and mobile-responsive templates. Starts at $4.99/month or $50/year.
+- [AI-Enabled Web Hosting](https://hometownwebhost.com/services/): Includes a dedicated AI assistant that lets the owner update their website by talking to it in plain English, plus SEO, accessibility support, and priority support. Starting at $129/month or $1,299/year.
+- [Custom Web Hosting](https://hometownwebhost.com/services/): Tailored hosting packages for businesses with unique storage, integration, or support requirements. Contact for pricing.
+
+## Pages
+
+- [Pricing](https://hometownwebhost.com/pricing/): Full plan comparison and pricing details.
+- [About](https://hometownwebhost.com/about/): Company mission, story, and who we serve.
+- [Contact](https://hometownwebhost.com/contact/): Contact form and email for sales or support questions.
+
+## Optional
+
+- [Privacy Policy](https://hometownwebhost.com/privacy/)
+- [Terms of Service](https://hometownwebhost.com/terms/)

@@ -29,7 +29,7 @@ const services = defineCollection({
 const pricing = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/pricing' }),
   schema: z.object({
-    planName: z.string().min(3).max(50),
+    planName: z.string().min(3).max(100),
     planType: z.enum(['basic', 'ai', 'custom']),
     monthlyPrice: z.number().nonnegative(),
     annualPrice: z.number().nonnegative(),
@@ -54,6 +54,7 @@ const pricing = defineCollection({
     })).optional(),
     order: z.number().int().positive(),
     contactForPricing: z.boolean().default(false),
+    startingAt: z.boolean().default(false),
   }),
 });
 

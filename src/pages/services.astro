@@ -10,11 +10,11 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
 
 <BaseLayout
   title="Web Hosting Services for Small Businesses"
-  description="Explore our web hosting services including basic hosting, AI-enabled website management, and custom solutions for small local businesses."
+  description="Explore our web hosting services, including basic hosting, AI-enabled hosting that lets you update your website by talking to it in plain English, and custom solutions for small local businesses."
 >
   <PageHeader
     heading="Our Hosting Services"
-    subheading="From basic web hosting to AI-powered website management, we have the right plan for your small business or personal site."
+    subheading='From basic web hosting to AI-enabled hosting that lets you update your website by "talking" to it, we have the right plan for your small business or personal site.'
   />
 
   <section class="section" aria-labelledby="services-list-heading">
@@ -28,6 +28,7 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
               description={service.data.description}
               icon={service.data.icon}
               features={service.data.features}
+              featured={service.data.featured}
             />
             {service.data.body && (
               <div class="service-body">
@@ -44,44 +45,18 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
                 </ul>
               </div>
             )}
+            {service.data.featured && (
+              <div class="ai-how-it-works">
+                <h3>How "Talking" to Your Website Works</h3>
+                <ol class="ai-steps">
+                  <li>Tell your website what you want to change in plain English</li>
+                  <li>Your dedicated AI assistant processes the request and makes the updates</li>
+                  <li>Review the changes and approve with one click before they go live</li>
+                </ol>
+              </div>
+            )}
           </div>
         ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section ai-highlight" aria-labelledby="ai-heading">
-    <div class="container">
-      <div class="ai-header">
-        <div class="ai-icon-wrap" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z"/><path d="M5 5l1.5 1.5M18.5 5L17 6.5M17 18.5l1.5 1.5M5 19l1.5-1.5"/></svg>
-        </div>
-        <h2 id="ai-heading">AI-Powered Website Management</h2>
-      </div>
-      <div class="ai-content">
-        <div class="ai-description">
-          <p>
-            Our revolutionary AI feature lets small business owners manage their website by simply talking to it in plain English. No coding, no complicated dashboards — just tell your website what you want and it happens.
-          </p>
-          <h3>How It Works</h3>
-          <ol class="ai-steps">
-            <li>Tell your website what you want to change in plain English</li>
-            <li>The AI processes your request and makes the updates</li>
-            <li>Review the changes and approve with one click</li>
-          </ol>
-          <p>
-            The AI feature is available as a fixed monthly add-on to any hosting plan. If you prefer to make manual updates to your site, <a href="/contact/">contact us</a> for pricing as costs vary based on your website type.
-          </p>
-        </div>
-        <div class="ai-benefits">
-          <h3>Benefits for Small Businesses</h3>
-          <ul>
-            <li>Save time — no need to learn technical tools</li>
-            <li>Save money — no developer needed for simple changes</li>
-            <li>Stay current — update your site anytime, anywhere</li>
-            <li>Look professional — AI ensures consistent design</li>
-          </ul>
-        </div>
       </div>
     </div>
   </section>
@@ -132,62 +107,20 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     font-weight: 500;
   }
 
-  /* AI highlight section */
-  .ai-highlight {
-    background-color: var(--color-bg-alt);
-  }
-
-  .ai-header {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-4);
-    margin-bottom: var(--spacing-6);
-  }
-
-  .ai-icon-wrap {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 56px;
-    height: 56px;
-    background: var(--color-primary-light);
-    color: var(--color-primary);
+  /* AI "how it works" callout, shown only on the featured service */
+  .ai-how-it-works {
+    padding: var(--spacing-6);
+    background-color: var(--color-primary-light);
     border-radius: var(--radius-lg);
   }
 
-  .ai-header h2 {
-    margin-bottom: 0;
-  }
-
-  .ai-content {
-    display: grid;
-    gap: var(--spacing-8);
-  }
-
-  @media (min-width: 768px) {
-    .ai-content {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .ai-description p {
-    margin-bottom: var(--spacing-4);
-    line-height: 1.7;
-  }
-
-  .ai-description a {
-    color: var(--color-primary);
-    text-decoration: underline;
-  }
-
-  .ai-description h3 {
+  .ai-how-it-works h3 {
     font-size: var(--font-size-lg);
+    color: var(--color-primary);
     margin-bottom: var(--spacing-3);
   }
 
   .ai-steps {
-    margin-bottom: var(--spacing-4);
     padding-left: var(--spacing-5);
   }
 
@@ -196,30 +129,5 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     margin-bottom: var(--spacing-2);
     padding-left: var(--spacing-2);
     line-height: 1.6;
-  }
-
-  .ai-benefits h3 {
-    font-size: var(--font-size-lg);
-    margin-bottom: var(--spacing-3);
-  }
-
-  .ai-benefits ul {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-3);
-  }
-
-  .ai-benefits li {
-    padding-left: var(--spacing-5);
-    position: relative;
-    line-height: 1.6;
-  }
-
-  .ai-benefits li::before {
-    content: '\2713';
-    position: absolute;
-    left: 0;
-    color: var(--color-secondary);
-    font-weight: 700;
   }
 </style>
