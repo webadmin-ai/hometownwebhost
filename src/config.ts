@@ -21,7 +21,7 @@ export interface SiteConfig {
 export const siteConfig: SiteConfig = {
   name: 'Home Town Web Host',
   description: 'Web hosting for small local businesses with AI-enabled website management',
-  url: 'https://hometownwebhost.com',
+  url: 'https://www.hometownwebhost.com',
   contactEmail: 'support@hometownwebhost.com',
   contactEndpoint: import.meta.env.CONTACT_ENDPOINT || '/api/contact',
   socialMedia: {},

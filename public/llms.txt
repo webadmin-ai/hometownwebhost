@@ -6,17 +6,17 @@ Home Town Web Host provides web hosting plans ranging from a simple, affordable 
 
 ## Services
 
-- [Basic Web Hosting](https://hometownwebhost.com/services/): Reliable, affordable hosting with custom domain support, free SSL, 99.9% uptime, and mobile-responsive templates. Starts at $4.99/month or $50/year.
-- [AI-Enabled Web Hosting](https://hometownwebhost.com/services/): Includes a dedicated AI assistant that lets the owner update their website by talking to it in plain English, plus SEO, accessibility support, and priority support. Starting at $129/month or $1,299/year.
-- [Custom Web Hosting](https://hometownwebhost.com/services/): Tailored hosting packages for businesses with unique storage, integration, or support requirements. Contact for pricing.
+- [Basic Web Hosting](https://www.hometownwebhost.com/services/): Reliable, affordable hosting with custom domain support, free SSL, 99.9% uptime, and mobile-responsive templates. Starts at $4.99/month or $50/year.
+- [AI-Enabled Web Hosting](https://www.hometownwebhost.com/services/): Includes a dedicated AI assistant that lets the owner update their website by talking to it in plain English, plus SEO, accessibility support, and priority support. Starting at $129/month or $1,299/year.
+- [Custom Web Hosting](https://www.hometownwebhost.com/services/): Tailored hosting packages for businesses with unique storage, integration, or support requirements. Contact for pricing.
 
 ## Pages
 
-- [Pricing](https://hometownwebhost.com/pricing/): Full plan comparison and pricing details.
-- [About](https://hometownwebhost.com/about/): Company mission, story, and who we serve.
-- [Contact](https://hometownwebhost.com/contact/): Contact form and email for sales or support questions.
+- [Pricing](https://www.hometownwebhost.com/pricing/): Full plan comparison and pricing details.
+- [About](https://www.hometownwebhost.com/about/): Company mission, story, and who we serve.
+- [Contact](https://www.hometownwebhost.com/contact/): Contact form and email for sales or support questions.
 
 ## Optional
 
-- [Privacy Policy](https://hometownwebhost.com/privacy/)
-- [Terms of Service](https://hometownwebhost.com/terms/)
+- [Privacy Policy](https://www.hometownwebhost.com/privacy/)
+- [Terms of Service](https://www.hometownwebhost.com/terms/)
