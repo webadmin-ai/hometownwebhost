@@ -7,11 +7,6 @@ const hasSocial = siteConfig.socialMedia && Object.values(siteConfig.socialMedia
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <div class="footer-brand">
-      <p class="footer-logo">{siteConfig.name}</p>
-      <p class="footer-tagline">{siteConfig.description}</p>
-    </div>
-
     <nav class="footer-nav" aria-label="Footer navigation">
       <ul>
         <li><a href="/privacy/">Privacy Policy</a></li>
@@ -63,16 +58,6 @@ const hasSocial = siteConfig.socialMedia && Object.values(siteConfig.socialMedia
   .footer-inner {
     display: grid;
     gap: var(--spacing-8);
-  }
-
-  .footer-logo {
-    font-size: var(--font-size-xl);
-    font-weight: 700;
-  }
-
-  .footer-tagline {
-    color: #9ca3af;
-    margin-top: var(--spacing-2);
   }
 
   .footer-nav ul {
@@ -149,7 +134,7 @@ const hasSocial = siteConfig.socialMedia && Object.values(siteConfig.socialMedia
 
   @media (min-width: 1025px) {
     .footer-inner {
-      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
     }
 
     .footer-copyright {

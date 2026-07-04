@@ -20,7 +20,7 @@ function isActive(href: string): boolean {
 <header class="site-header">
   <div class="container header-inner">
     <a href="/" class="logo" aria-label="Home Town Web Host - Home">
-      Home Town Web Host
+      <img src="/images/hometown-logo.svg" alt="Home Town Web Host" class="logo-img" />
     </a>
 
     <nav class="desktop-nav" aria-label="Main navigation">
@@ -72,11 +72,13 @@ function isActive(href: string): boolean {
   }
 
   .logo {
-    font-size: var(--font-size-xl);
-    font-weight: 800;
-    color: var(--color-primary);
-    text-decoration: none;
-    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .logo-img {
+    height: 104px;
+    width: auto;
   }
 
   .desktop-nav ul {
