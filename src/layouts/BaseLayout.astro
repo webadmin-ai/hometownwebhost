@@ -10,16 +10,26 @@ interface Props {
   description: string;
   ogImage?: string;
   canonicalURL?: string;
+  noindex?: boolean;
 }
 
-const { title, description, ogImage, canonicalURL } = Astro.props;
+const { title, description, ogImage, canonicalURL, noindex } = Astro.props;
 
-const pageTitle = title === siteConfig.seo.defaultTitle
+const pageTitle = title.includes(siteConfig.name)
   ? title
   : siteConfig.seo.titleTemplate.replace('%s', title);
 
 const ogImg = ogImage || siteConfig.seo.defaultOgImage;
 const canonical = canonicalURL || new URL(Astro.url.pathname, siteConfig.url).href;
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: siteConfig.name,
+  url: siteConfig.url,
+  logo: new URL('/images/hometown-logo.svg', siteConfig.url).href,
+  description: siteConfig.description,
+};
 ---
 
 <!doctype html>
@@ -36,11 +46,19 @@ const canonical = canonicalURL || new URL(Astro.url.pathname, siteConfig.url).hr
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(ogImg, siteConfig.url).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={siteConfig.name} />
 
-    <meta name="robots" content="index, follow" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImg, siteConfig.url).href} />
+
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
   </head>
   <body>
     <Header />
