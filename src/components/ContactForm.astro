@@ -32,7 +32,7 @@ import { siteConfig } from '../config';
   </div>
 
   <div class="form-group" id="website-name-group">
-    <label for="website-name">Website Name</label>
+    <label for="website-name">Website Name <span class="required" aria-hidden="true">*</span></label>
     <input
       type="text"
       id="website-name"
@@ -219,6 +219,7 @@ import { siteConfig } from '../config';
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const websiteSelect = document.getElementById('has-existing-website') as HTMLSelectElement;
   const websiteNameGroup = document.getElementById('website-name-group') as HTMLElement;
+  const websiteNameInput = document.getElementById('website-name') as HTMLInputElement;
   const statusEl = document.getElementById('form-status') as HTMLElement;
 
   function showError(fieldId: string, message: string) {
@@ -244,8 +245,13 @@ import { siteConfig } from '../config';
   function toggleWebsiteName() {
     if (websiteSelect.value === 'yes') {
       websiteNameGroup.classList.remove('hidden');
+      websiteNameInput.setAttribute('required', '');
+      websiteNameInput.setAttribute('aria-required', 'true');
     } else {
       websiteNameGroup.classList.add('hidden');
+      websiteNameInput.removeAttribute('required');
+      websiteNameInput.removeAttribute('aria-required');
+      clearError('website-name');
     }
   }
 
@@ -257,7 +263,7 @@ import { siteConfig } from '../config';
     email: validateEmail,
     phone: validatePhone,
     message: validateMessage,
-    'website-name': validateWebsiteName,
+    'website-name': (value) => validateWebsiteName(value, websiteSelect.value === 'yes'),
   };
 
   Object.entries(fieldValidators).forEach(([fieldId, validator]) => {
@@ -289,7 +295,6 @@ import { siteConfig } from '../config';
     const emailInput = document.getElementById('email') as HTMLInputElement;
     const phoneInput = document.getElementById('phone') as HTMLInputElement;
     const messageInput = document.getElementById('message') as HTMLTextAreaElement;
-    const websiteNameInput = document.getElementById('website-name') as HTMLInputElement;
     const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
 
     const formData = {

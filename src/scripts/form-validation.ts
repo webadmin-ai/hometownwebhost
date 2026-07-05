@@ -17,6 +17,7 @@ export const errorMessages = {
     maxLength: 'Message must be 1000 characters or less',
   },
   websiteName: {
+    required: 'Website name is required',
     maxLength: 'Website name must be 100 characters or less',
   },
 } as const;
@@ -51,7 +52,9 @@ export function validateMessage(value: string): string | null {
   return null;
 }
 
-export function validateWebsiteName(value: string): string | null {
+export function validateWebsiteName(value: string, required = false): string | null {
+  const trimmed = value.trim();
+  if (required && !trimmed) return errorMessages.websiteName.required;
   if (value.length > 100) return errorMessages.websiteName.maxLength;
   return null;
 }
@@ -83,10 +86,8 @@ export function validateForm(data: {
   const messageError = validateMessage(data.message);
   if (messageError) errors.message = messageError;
 
-  if (data.hasExistingWebsite) {
-    const websiteError = validateWebsiteName(data.websiteName);
-    if (websiteError) errors.websiteName = websiteError;
-  }
+  const websiteError = validateWebsiteName(data.websiteName, data.hasExistingWebsite);
+  if (websiteError) errors.websiteName = websiteError;
 
   return {
     valid: Object.keys(errors).length === 0,
