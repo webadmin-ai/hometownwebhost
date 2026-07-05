@@ -4,6 +4,7 @@ export interface SiteConfig {
   url: string;
   contactEmail: string;
   contactEndpoint: string;
+  contactApiKey: string;
   socialMedia?: {
     facebook?: string;
     twitter?: string;
@@ -24,6 +25,7 @@ export const siteConfig: SiteConfig = {
   url: 'https://www.hometownwebhost.com',
   contactEmail: 'support@hometownwebhost.com',
   contactEndpoint: import.meta.env.CONTACT_ENDPOINT || '/api/contact',
+  contactApiKey: import.meta.env.CONTACT_API_KEY || '',
   socialMedia: {},
   seo: {
     defaultTitle: 'Home Town Web Host',

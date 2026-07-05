@@ -1,5 +1,7 @@
 # Dependencies
 node_modules/
+__pycache__/
+*.pyc
 
 # Build output
 dist/
@@ -46,6 +48,8 @@ coverage/
 
 # Local development files
 .local/
+venv/
+.venv/
 
 # Optional editor files
 .idea/

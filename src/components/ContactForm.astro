@@ -2,7 +2,13 @@
 import { siteConfig } from '../config';
 ---
 
-<form id="contact-form" class="contact-form" novalidate>
+<form
+  id="contact-form"
+  class="contact-form"
+  novalidate
+  action={siteConfig.contactEndpoint}
+  data-api-key={siteConfig.contactApiKey}
+>
   <div class="form-group">
     <label for="name">Name <span class="required" aria-hidden="true">*</span></label>
     <input
@@ -320,9 +326,13 @@ import { siteConfig } from '../config';
 
     try {
       const endpoint = form.getAttribute('action') || '/api/contact';
+      const apiKey = form.dataset.apiKey;
       const response = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(apiKey ? { 'x-api-key': apiKey } : {}),
+        },
         body: JSON.stringify({
           ...formData,
           timestamp: new Date().toISOString(),
