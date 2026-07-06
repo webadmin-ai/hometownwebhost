@@ -35,6 +35,9 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
                 <p>{service.data.body}</p>
               </div>
             )}
+            {service.data.note && (
+              <p class="service-note">{service.data.note}</p>
+            )}
             {service.data.targetAudience.length > 0 && (
               <div class="service-audience">
                 <h3>Ideal For</h3>
@@ -85,6 +88,12 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
   .service-body p {
     color: var(--color-text-light);
     line-height: 1.7;
+  }
+
+  .service-note {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+    font-style: italic;
   }
 
   .service-audience h3 {

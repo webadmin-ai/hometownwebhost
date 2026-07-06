@@ -5,6 +5,7 @@
   "annualPrice": 1299,
   "features": [
     "Everything in Basic Hosting",
+    "Website migration assistance",
     "Update your website by talking to it in plain English",
     "Your own dedicated AI assistant who understands your business and your website",
     "Preview and approve changes before they go live",
@@ -30,5 +31,6 @@
   "isPopular": true,
   "order": 2,
   "contactForPricing": false,
-  "startingAt": false
+  "startingAt": false,
+  "note": "Includes free website migration; requires a minimum 12-month commitment."
 }

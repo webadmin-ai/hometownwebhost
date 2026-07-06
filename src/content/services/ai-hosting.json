@@ -4,6 +4,7 @@
   "icon": "sparkles",
   "features": [
     "Everything in Basic Hosting",
+    "Website migration assistance",
     "Update your website by talking to it in plain English",
     "Your own dedicated AI assistant who understands your business and your website",
     "Preview and approve changes before they go live",
@@ -25,5 +26,6 @@
   ],
   "order": 2,
   "featured": true,
-  "body": "Our AI-Enabled hosting is a game-changer for small business owners. Instead of learning complicated website tools or hiring a developer for every small change, simply tell your website what you want in plain English. Want to update your hours? Add a new menu item? Change your homepage banner? Add a new image? Just say it and your dedicated AI assistant makes it happen."
+  "body": "Our AI-Enabled hosting is a game-changer for small business owners. Instead of learning complicated website tools or hiring a developer for every small change, simply tell your website what you want in plain English. Want to update your hours? Add a new menu item? Change your homepage banner? Add a new image? Just say it and your dedicated AI assistant makes it happen.",
+  "note": "Includes free website migration; requires a minimum 12-month commitment."
 }

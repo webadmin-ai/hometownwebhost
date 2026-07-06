@@ -20,5 +20,6 @@
   },
   "isPopular": false,
   "order": 1,
-  "contactForPricing": false
+  "contactForPricing": false,
+  "note": "For new websites only — this plan does not include migrating an existing site."
 }

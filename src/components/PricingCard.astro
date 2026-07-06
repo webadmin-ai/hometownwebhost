@@ -16,6 +16,7 @@ interface Props {
   }[];
   contactForPricing?: boolean;
   startingAt?: boolean;
+  note?: string;
 }
 
 const {
@@ -28,6 +29,7 @@ const {
   additionalCosts,
   contactForPricing = false,
   startingAt = false,
+  note,
 } = Astro.props;
 
 function formatPrice(amount: number): string {
@@ -92,6 +94,8 @@ function formatDate(dateStr: string): string {
           Promotion ends {formatDate(promotionalPrice.expiresAt)}
         </p>
       )}
+
+      {note && <p class="plan-note">{note}</p>}
     </div>
   )}
 
@@ -221,6 +225,13 @@ function formatDate(dateStr: string): string {
     font-size: var(--font-size-sm);
     color: var(--color-accent);
     font-weight: 500;
+    margin-top: var(--spacing-2);
+  }
+
+  .plan-note {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+    font-style: italic;
     margin-top: var(--spacing-2);
   }
 

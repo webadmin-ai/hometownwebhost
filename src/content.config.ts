@@ -23,6 +23,7 @@ const services = defineCollection({
     order: z.number().int().positive(),
     body: z.string().optional(),
     featured: z.boolean().default(false),
+    note: z.string().optional(),
   }),
 });
 
@@ -55,6 +56,7 @@ const pricing = defineCollection({
     order: z.number().int().positive(),
     contactForPricing: z.boolean().default(false),
     startingAt: z.boolean().default(false),
+    note: z.string().optional(),
   }),
 });
 
