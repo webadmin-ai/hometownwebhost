@@ -51,6 +51,9 @@ coverage/
 venv/
 .venv/
 
+# Generated images (scripts/generate-image.mjs)
+/generated/
+
 # Optional editor files
 .idea/
 .vscode/
