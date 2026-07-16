@@ -66,4 +66,4 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ## Project-specific
 
-- **Image generation:** when asked to generate/create an image (e.g. for site content), run `node scripts/generate-image.mjs "<prompt>" [output-path]` (uses Gemini's "nano banana" image model via `GEMINI_API_KEY` in `.env`). Output defaults to `generated/<timestamp>.<ext>` if no path is given.
+- **Image generation:** when asked to generate/create an image using Gemini specifically, run `node scripts/generate-image.mjs "<prompt>" [output-path]` (Gemini's "nano banana" image model via `GEMINI_API_KEY` in `.env`). Output defaults to `generated/<timestamp>.<ext>` if no path is given. This is a dev-only CLI tool run on request — it is not part of the site/app (hence `@google/genai` lives in `devDependencies`, not `dependencies`).
